@@ -32,8 +32,7 @@ function mouseClicked() {
   if ((ratioScale*100 <= mouseY && mouseY <= ratioScale*135) && (ratioScale*110 <= mouseX && mouseX <= ratioScale*165)) {
     oscillOn = !oscillOn;
   }
-    externalPatching();
-
+  externalPatching();
 }
 
 function draw() {
@@ -104,7 +103,7 @@ function drawOscill() {
   beginShape();
   stroke(113, 222, 146);
   strokeWeight(2);
-  //glow(color(89, 235, 128), 10);
+  glow(color(89, 235, 128), 10);
   let timeChange = oscillaScale[int(timedivKnob.knobValue)];
   let voltChange = oscillaVoltScale[int(voltsdivKnob.knobValue)];
   for (let i = 0; i < waveform.length*timeChange; i++) {
@@ -112,13 +111,21 @@ function drawOscill() {
     let yadd  = map(yposKnob.knobValue, 0, 100, -175*ratioScale, 175*ratioScale);
     let x = constrain(map(i, 0, waveform.length*timeChange, (436*ratioScale)+xadd, (930 *ratioScale)+xadd), 436*ratioScale, 930 *ratioScale);
     let y = constrain(map( waveform[i]*voltChange, -1, 1, (0*ratioScale)+yadd, (515*ratioScale)+yadd), 105, 450);
-    if(x == 930) { y = 277; }
+    if (x == 930) {
+      y = 277;
+    }
     vertex(x, y);
   }
   endShape();
+  noglow();
 }
 
 function glow(glowColor, blur) {
+  drawingContext.save();
   drawingContext.shadowBlur = blur;
   drawingContext.shadowColor = glowColor;
+}
+
+function noglow() {
+  drawingContext.restore();
 }
