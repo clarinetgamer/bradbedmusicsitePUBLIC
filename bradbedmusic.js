@@ -22,10 +22,11 @@ function setup() {
   fft = new p5.FFT();
   fft.setInput(mic);
   //(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label) {
-  xposKnob = new MakeKnob('assets/knob.png', 51, 274, 125, 0, 100, 50, 2, "");
-  yposKnob = new MakeKnob('assets/knob.png', 51, 362, 125, 0, 100, 50, 2, "");
-  timedivKnob = new MakeKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, "");
-  voltsdivKnob = new MakeKnob('assets/bigknob.png', 104, 308, 297, 0, 6, 3, 2, "");
+  xposKnob = new AdjustingKnob('assets/knob.png', 51, 274, 125, 0, 100, 50, 2, "");
+  yposKnob = new AdjustingKnob('assets/knob.png', 51, 362, 125, 0, 100, 50, 2, "");
+  timedivKnob = new AdjustingKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, "");
+  voltsdivKnob = new AdjustingKnob('assets/bigknob.png', 104, 308, 297, 0, 6, 3, 2, "");
+  window.location.href = "downloads.html";
 }
 
 function mouseClicked() {

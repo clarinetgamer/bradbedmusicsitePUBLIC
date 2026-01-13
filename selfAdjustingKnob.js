@@ -1,25 +1,6 @@
-// Miles DeCoster - codeforartists.com
-// MakeKnob function to create turning knobs which return different number ranges
+// Based on Miles DeCoster's knobMake Library - codeforartists.com
 
-// imgSrc - Set the image source in the first parameter. example: "knobMF.png"
-// diameter - Set knob size. Just a number (but refers to pixels)
-// locx, locy - Set the location on the canvas horizontal and vertical.
-// lowNum, hiNum - Set the range of values returned. Numbers floats of integers.
-// defaultNum - Sets the default value of the knob. DO NOT set a frequency knob to 0. Amplitude can be 0.
-// numPlaces - Refers to the displayed value below the knob. Sets the number of decimal places to display. 
-// Does not affect the actual value returned.
-// label - the text to display below the knob. example: "Frequency"
-
-// NOTES:
-// If you set up a button to return a value between 0 and 10 you could divide the result by 10 to 
-// get a value between 0 and 1 and display that computed value by modifying the display value in your knob instance. 
-// Each knob instance will also need to be connected to the mouse events in the main sketch
-// using the "active" method below
-// To retrieve the current value use instanceName.knobValue. This is how you access the returned value 
-// and use it to actually do something.
-// Example: myfreq = freqKnob.knobValue; osc.freq(myfreq);
-
-function MakeKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label) {
+function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label) {
   this.pos = createVector(0,0);
   this.pos.x = locx*ratioScale;
   this.pos.y = locy*ratioScale;
