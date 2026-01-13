@@ -26,14 +26,6 @@ function setup() {
   yposKnob = new AdjustingKnob('assets/knob.png', 51, 362, 125, 0, 100, 50, 2, "");
   timedivKnob = new AdjustingKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, "");
   voltsdivKnob = new AdjustingKnob('assets/bigknob.png', 104, 308, 297, 0, 6, 3, 2, "");
-  window.location.href = "downloads.html";
-}
-
-function mouseClicked() {
-  if ((ratioScale*100 <= mouseY && mouseY <= ratioScale*135) && (ratioScale*110 <= mouseX && mouseX <= ratioScale*165)) {
-    oscillOn = !oscillOn;
-  }
-  externalPatching();
 }
 
 function draw() {
@@ -50,6 +42,16 @@ function draw() {
   yposKnob.update();
   timedivKnob.update();
   voltsdivKnob.update();
+}
+
+function mouseClicked() {
+  if (buttonBounds(110, 100, 55, 35)) {
+        oscillOn = !oscillOn;
+  }
+  if (buttonBounds(997, 54, 40, 35)) {
+  openPage("downloads");
+  }
+  externalPatching();
 }
 
 function mousePressed() {
@@ -129,4 +131,16 @@ function glow(glowColor, blur) {
 
 function noglow() {
   drawingContext.restore();
+}
+
+function openPage(htmlfilename) {
+  window.location.href = htmlfilename+".html";
+}
+
+function buttonBounds(xstart, ystart, xadd, yadd) {
+    if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yadd)) && (ratioScale*xstart <= mouseX && mouseX <= ratioScale*(xstart+xadd))){
+    return true;
+    } else {
+    return false;
+    }
 }
