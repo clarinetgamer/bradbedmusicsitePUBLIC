@@ -12,6 +12,9 @@ let oscillMult = 0;
 let dec = false;
 let lastChange = 0;
 let animCounter = 0;
+let animButtonImg;
+
+
 
 
 // Load the image.
@@ -20,10 +23,10 @@ function preload() {
   mobilebg = loadImage('assets/WebsiteMobile.png');
   clickbox = loadImage('assets/CLICKBOX.png');
   off = loadImage('assets/off.png');
+  animButtonImg = loadImage('assets/clickedbutt.png');
 }
 
 function setup() {
-
   if (windowWidth < windowHeight) {
     desktop = false;
     cnv = createCanvas(windowWidth, windowWidth*1.85);
@@ -34,7 +37,7 @@ function setup() {
     mic.start();
     fft = new p5.FFT();
     fft.setInput(mic);
-    //(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label) {
+    //(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label)
     xposKnob = new AdjustingKnob('assets/knob.png', 51, 274, 125, 0, 100, 50, 2, "");
     yposKnob = new AdjustingKnob('assets/knob.png', 51, 362, 125, 0, 100, 50, 2, "");
     timedivKnob = new AdjustingKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, "");
@@ -43,18 +46,21 @@ function setup() {
 }
 
 function draw() {
+  loop();
   background(221, 210, 192);
   if (desktop) {
-    ratioScale = windowWidth/1366;
+    ratioScale = windowWidth/1366; //sets scaling var
     drawDesktop();
   } else {
-    ratioScale = windowWidth/1290;
+    ratioScale = windowWidth/1290; //sets scaling var
     drawMobile();
   }
 }
 
-function drawDesktop() {
+function drawDesktop() { //draw for desktop site
   image(bg, 0, 0, ratioScale*1366, ratioScale*768);
+  buttonHandler();
+
   if (oscillOn == false) {
     image(off, 0, 0, ratioScale*198, ratioScale*151);
   }
@@ -67,19 +73,36 @@ function drawDesktop() {
   voltsdivKnob.update();
 }
 
-function drawMobile() {
+function drawMobile() { //draw mobile site
   image(mobilebg, 0, 0, ratioScale*1290, ratioScale*2387);
   mobileOscilMultMod();
   drawMobileOscill();
 }
 
-function mouseClicked() {
+//button vars
+let downloadClick = false;
+let maxClick = false;
+let aboutClick = false;
+
+function buttonHandler() {
+  onButton(downloadClick, 1036, 56);
+  onButton(maxClick, 1036, 101);
+  onButton(aboutClick, 1206, 348);
+}
+
+function mouseClicked() {//mouse click/button control
   if (desktop) {
     if (buttonBounds(110, 100, 55, 35)) {
       oscillOn = !oscillOn;
-    }
-    if (buttonBounds(997, 54, 40, 35)) {
+    } else if (buttonBounds(997, 54, 40, 35)) {
       openPage("downloads");
+      downloadClick = !downloadClick;
+    } else if (buttonBounds(997, 100, 40, 35)) {
+      openPage("maxpatches");
+      maxClick = !maxClick;
+    } else if (buttonBounds(1169, 348, 40, 35)) {
+      openPage("aboutme");
+      aboutClick = !aboutClick;
     }
     externalPatching();
   } else {
@@ -89,13 +112,20 @@ function mouseClicked() {
 
 function mousePressed() {
   if (desktop) {
+    if (buttonBounds(997, 54, 40, 35)) {
+      downloadClick = !downloadClick;
+    } else if (buttonBounds(997, 100, 40, 35)) {
+      maxClick = !maxClick;
+    } else if (buttonBounds(1169, 348, 40, 35)) {
+      aboutClick = !aboutClick;
+    }
     xposKnob.active();
     yposKnob.active();
     timedivKnob.active();
     voltsdivKnob.active();
   }
 }
-
+//Mobile touch control
 function touchEnded() {
   if (!desktop && !moved) {
     mobileExternalPatching();
@@ -123,7 +153,7 @@ function mouseReleased() {
   }
 }
 
-function windowResized() {
+function windowResized() { //resize site on desktop
   if (desktop) {
     if (windowHeight < 768) {
       resizeCanvas(windowWidth, 768);
@@ -133,7 +163,7 @@ function windowResized() {
   }
 }
 
-function externalPatching() {
+function externalPatching() { //external links on desktop buttons
   if ((ratioScale*600<= mouseY && mouseY <= ratioScale*650)) {
     if (ratioScale*90 <= mouseX && mouseX <= ratioScale*140) {
       window.open('https://www.instagram.com/bradbedmusic?igsh=bmVldW1wMW9nMHY4&utm_source=qr', "_self");
@@ -151,7 +181,7 @@ function externalPatching() {
   }
 }
 
-function mobileExternalPatching() {
+function mobileExternalPatching() { //external links on mobile buttons
   if (buttonBounds(170, 1639, 206, 200)) {
     window.open('https://www.instagram.com/bradbedmusic?igsh=bmVldW1wMW9nMHY4&utm_source=qr', "_self");
   } else if (buttonBounds(541, 1639, 206, 200)) {
@@ -167,7 +197,7 @@ function mobileExternalPatching() {
   }
 }
 
-function drawOscill() {
+function drawOscill() { //draw desktop oscilloscope
   let waveform = fft.waveform();
   let oscillaScale = [0.05, 0.07, 0.10, 0.25, 0.50, 0.75, 1.00];
   let oscillaVoltScale = [0.25, 0.50, 0.75, 1, 2, 4, 8];
@@ -190,7 +220,7 @@ function drawOscill() {
   noglow();
 }
 
-function drawMobileOscill() {
+function drawMobileOscill() { //draw mobile oscilloscope animation for various wavs
   noFill();
   beginShape();
   stroke(113, 222, 146);
@@ -237,7 +267,7 @@ function drawMobileOscill() {
 }
 let flip = false;
 
-function flipAnim() {
+function flipAnim() { //Changes waveform in mobile oscill
   if (flip == true) {
     flip = false;
     if (animCounter != 3) {
@@ -248,13 +278,13 @@ function flipAnim() {
   }
 }
 
-function mobileOscilMultMod() {
+function mobileOscilMultMod() { //mobile oscill growth for animation
   flipAnim();
   if ((millis()-lastChange)>60) {
     lastChange = millis();
-      if (oscillMult == 0 && !flip) {
-    flip = true;
-  }
+    if (oscillMult == 0 && !flip) {
+      flip = true;
+    }
     if (oscillMult == -2) {
       dec = false;
     }
@@ -268,21 +298,21 @@ function mobileOscilMultMod() {
   }
 }
 
-function glow(glowColor, blur) {
+function glow(glowColor, blur) { //oscillo glow effect
   drawingContext.save();
   drawingContext.shadowBlur = blur;
   drawingContext.shadowColor = glowColor;
 }
 
-function noglow() {
+function noglow() { //resets oscilliscope glow effect
   drawingContext.restore();
 }
 
-function openPage(htmlfilename) {
+function openPage(htmlfilename) { //opens another page
   window.location.href = htmlfilename+".html";
 }
 
-function buttonBounds(xstart, ystart, xadd, yadd) {
+function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mouse is in the bounds of a button
   if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yadd)) && (ratioScale*xstart <= mouseX && mouseX <= ratioScale*(xstart+xadd))) {
     return true;
   } else {
@@ -290,6 +320,15 @@ function buttonBounds(xstart, ystart, xadd, yadd) {
   }
 }
 
-function drawClickbox(xstart, ystart, xadd, yadd) {
+function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging
   image(clickbox, ratioScale*xstart, ratioScale*ystart, ratioScale*(xadd), ratioScale*(yadd));
+}
+
+function onButton(bool, toprightx, toprighty) {
+  if (bool) {
+    w = ratioScale*42.7134;
+    h = ratioScale*39.9094;
+    padding = ratioScale*1.5;
+    image(animButtonImg, (ratioScale*toprightx)-(w-padding), ratioScale*toprighty, w, h);
+  }
 }
