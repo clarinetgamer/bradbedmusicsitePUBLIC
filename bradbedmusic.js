@@ -1,5 +1,5 @@
 let cnv
-let bg;
+  let bg;
 let mobilebg;
 let clickbox;
 let off;
@@ -216,15 +216,17 @@ function drawMobileOscill() {
     }
     if (pos) {
       triy = 1 + triy;
-      triY = map(triy, 0, 186* ratioScale, (567*ratioScale)-(60 *oscillMult* ratioScale), (567*ratioScale)+(60 *oscillMult* ratioScale));
     } else {
       triy = -1 + triy
-        triY = map(triy, 0, 186* ratioScale, (567*ratioScale)-(60 *oscillMult* ratioScale), (567*ratioScale)+(60 *oscillMult* ratioScale));
     }
+    triY = map(triy, 0, 93, (567*ratioScale)-(60 *oscillMult* ratioScale), (567*ratioScale)+(60 *oscillMult* ratioScale));
+
     if (animCounter == 0) {
       y = sinY;
     } else if (animCounter == 1) {
       y = sqrY;
+    } else if (animCounter == 2) {
+      y = sinY;
     } else {
       y = triY;
     }
@@ -233,30 +235,30 @@ function drawMobileOscill() {
   endShape();
   noglow();
 }
-  let flip = false;
-  
-  function flipAnim() {
-    if (flip == true) {
-      flip = false;
-      if (animCounter != 2) {
-        animCounter += 1;
-      } else {
-        animCounter = 0;
-      }
-    }
-    if (oscillMult == 0 && !flip) {
-      flip = true;
+let flip = false;
+
+function flipAnim() {
+  if (flip == true) {
+    flip = false;
+    if (animCounter != 3) {
+      animCounter += 1;
+    } else {
+      animCounter = 0;
     }
   }
+}
 
 function mobileOscilMultMod() {
   flipAnim();
   if ((millis()-lastChange)>60) {
     lastChange = millis();
+      if (oscillMult == 0 && !flip) {
+    flip = true;
+  }
     if (oscillMult == -2) {
       dec = false;
     }
-    
+
     if (oscillMult < 2 && !dec) {
       oscillMult += 0.25;
     } else {
