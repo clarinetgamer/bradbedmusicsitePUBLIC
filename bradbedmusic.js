@@ -14,7 +14,7 @@ let lastChange = 0;
 let animCounter = 0;
 let animButtonImg;
 
-let test = true;
+let test = false;
 
 
 // Load the image.
