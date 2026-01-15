@@ -22,56 +22,70 @@ let printSave;
 let digiSave;
 let exportCount = 2;
 let exportmenu = false;
+let desktop = false;
 
 function setup() {
-  helpbg = loadImage('assets/help.png');
-  mainbg = loadImage('assets/main.png');
-  exportbg = loadImage('assets/export.png');
-  clickbox = loadImage('assets/CLICKBOX.png');
-  printTemp = loadImage('assets/printtemp.png');
-  digiTemp = loadImage('assets/digitemp.png');
-  exportMenuBg = loadImage('assets/exportmenu.png');
-  cnv = createCanvas(windowWidth, windowWidth*1.7);
-  capture = createCapture(VIDEO);
-  capture.elt.setAttribute('playsinline', '');
-  capture.size(windowWidth, windowWidth*0.75);
-  capture.hide();
-  textAlign(CENTER, CENTER);
-  fill('white');
-  stroke('black');
-  strokeWeight(4);
+  if (windowWidth > windowHeight) {
+    comp = loadImage('assets/compscreen.png');
+    cnv = createCanvas(windowWidth, windowHeight);
+        desktop = true;
+
+  } else {
+    helpbg = loadImage('assets/help.png');
+    mainbg = loadImage('assets/main.png');
+    exportbg = loadImage('assets/export.png');
+    clickbox = loadImage('assets/CLICKBOX.png');
+    printTemp = loadImage('assets/printtemp.png');
+    digiTemp = loadImage('assets/digitemp.png');
+    exportMenuBg = loadImage('assets/exportmenu.png');
+    cnv = createCanvas(windowWidth, windowWidth*1.7);
+    capture = createCapture(VIDEO);
+    capture.elt.setAttribute('playsinline', '');
+    capture.size(windowWidth, windowWidth*0.75);
+    capture.hide();
+    textAlign(CENTER, CENTER);
+    fill('white');
+    stroke('black');
+    strokeWeight(4);
+  }
 }
 
 
 function draw() {
-  background(255);
-  ratioScale = windowWidth/1080;
-  if (help) {
-    helpWindow();
-  }
-  if (main) {
-    if (photoCounter < 4) {
-      mainWindow();
-    } else {
-      printScreen = true;
-      main = false;
+  if (desktop) {
+    background(241,95,91);
+    ratioScale = windowWidth/1366;
+    image(comp, 0, 0, 1366*ratioScale, 768*ratioScale);
+  } else {
+    background(255);
+    ratioScale = windowWidth/1080;
+    if (help) {
+      helpWindow();
     }
-  }
-  if (flash) {
-    flashScreen();
-  }
-  if (printScreen) {
-    printingScreen();
-  }
-  if (digiScreen) {
-    digifyScreen();
-  }
-  if (finalScreen) {
-    cnv = createCanvas(windowWidth, windowWidth*1.7);
-    image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
-    image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
-    if (exportmenu) {
-    image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
+    if (main) {
+      if (photoCounter < 4) {
+        mainWindow();
+      } else {
+        printScreen = true;
+        main = false;
+      }
+    }
+    if (flash) {
+      flashScreen();
+    }
+    if (printScreen) {
+      printingScreen();
+    }
+    if (digiScreen) {
+      digifyScreen();
+    }
+    if (finalScreen) {
+      cnv = createCanvas(windowWidth, windowWidth*1.7);
+      image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
+      image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
+      if (exportmenu) {
+        image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
+      }
     }
   }
 }
@@ -81,45 +95,54 @@ function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugg
 }
 
 function touchEnded() {
-  if (buttonBounds(220, 1703, 637, 66)) {
-  window.open("https://www.bradbedmusic.com");
-  }
-  if (help) {
-    if (buttonBounds(204, 1462, 679, 176)) {
-      help = false;
-      main = true;
+  if (!desktop) {
+    if (buttonBounds(220, 1703, 637, 66)) {
+      window.open("https://www.bradbedmusic.com");
     }
-  }
-  if (main) {
-    if (buttonBounds(252, 1545, 573, 94)) {
-      help = true;
-      main = false;
-      resetVars();
+    if (help) {
+      if (buttonBounds(204, 1462, 679, 176)) {
+        help = false;
+        main = true;
+      }
     }
-  }
-  if (finalScreen) {
-    if (buttonBounds(563, 1548, 457, 94)) {
-      help = true;
-      main = false;
-      finalScreen = false;
-      resetVars();
+    if (main) {
+      if (buttonBounds(252, 1545, 573, 94)) {
+        help = true;
+        main = false;
+        resetVars();
+      }
     }
-    if (buttonBounds(56, 1548, 457, 94)) {
-      exportmenu = true;
+    if (finalScreen) {
+      if (buttonBounds(563, 1548, 457, 94)) {
+        help = true;
+        main = false;
+        finalScreen = false;
+        resetVars();
+      }
+      if (buttonBounds(56, 1548, 457, 94)) {
+        exportmenu = true;
+      }
     }
-  }
-  if(exportmenu) {
-  if (buttonBounds(235, 607, 610, 94)) {
-      printSave.save("PhoneOBoothPrint.png");
-      exportmenu = false;
-    }
-    if (buttonBounds(235, 796, 610, 94)) {
-      digiSave.save("PhoneOBoothDigital.png");
-      exportmenu = false;
+    if (exportmenu) {
+      if (buttonBounds(235, 607, 610, 94)) {
+        printSave.save("PhoneOBoothPrint.png");
+        exportmenu = false;
+      }
+      if (buttonBounds(235, 796, 610, 94)) {
+        digiSave.save("PhoneOBoothDigital.png");
+        exportmenu = false;
+      }
     }
   }
 }
 
+function mouseClicked() {
+  if (desktop) {
+    if (buttonBounds(453, 676, 467, 46)) {
+      window.open("https://www.bradbedmusic.com");
+    }
+  }
+}
 
 function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mouse is in the bounds of a button
   if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yadd)) && (ratioScale*xstart <= mouseX && mouseX <= ratioScale*(xstart+xadd))) {
@@ -219,4 +242,14 @@ function digifyScreen() {
   digiSave = cnvBuildDig.get();
   digiScreen = false;
   finalScreen = true;
+}
+
+function windowResized() { //resize site on desktop
+  if (desktop) {
+    if (windowHeight < 768) {
+      resizeCanvas(windowWidth, 768);
+    } else {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+  }
 }
