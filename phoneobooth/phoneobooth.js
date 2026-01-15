@@ -20,7 +20,6 @@ function setup() {
   capture.elt.setAttribute('playsinline', '');
   capture.size(windowWidth, windowWidth*2);
   capture.hide();
-  textSize(80);
   textAlign(CENTER, CENTER);
   fill('white');
   stroke('black');
@@ -95,8 +94,10 @@ function helpWindow() {
 function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   image(capture, ratioScale*83, ratioScale*942, ratioScale*654, ratioScale*443);
+  textSize(250*ratioScale);
   text(timer, 227*ratioScale, 560*ratioScale);
   countString = str(photoCounter+1)+ "/4";
+  textSize(90*ratioScale);
   text(countString, 880*ratioScale, 564*ratioScale);
   if (frameCount % 60 == 0 && timer > 0) {
     timer --;
