@@ -29,7 +29,7 @@ function preload() {
 function setup() {
   if (windowWidth < windowHeight) {
     desktop = false;
-    cnv = createCanvas(windowWidth, windowWidth*1.85, WEBGL);
+    cnv = createCanvas(windowWidth, windowWidth*1.85);
   } else {
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.mousePressed(userStartAudio);
