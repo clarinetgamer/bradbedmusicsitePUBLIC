@@ -80,6 +80,7 @@ function mobileOscilMultMod() { //mobile oscill growth for animation
 function touchEnded() {
   if (!desktop && !moved) {
     mobileExternalPatching();
+    buttonMReleaseHandler();
   }
 }
 function touchMoved() {
@@ -92,10 +93,38 @@ function touchStarted() {
   if (!desktop) {
     moved = false;
   }
+  buttonMStartHandler();
 }
 
 function drawMobile() { //draw mobile site
   image(mobilebg, 0, 0, ratioScale*1290, ratioScale*2387);
   mobileOscilMultMod();
   drawMobileOscill();
+  buttonHandlerM();
+}
+
+let aboutMClick = false;
+let projMClick = false;
+
+function buttonHandlerM() {
+  onMobileButton(aboutMClick, 265, 1243);
+  onMobileButton(projMClick, 761, 1243);
+}
+
+function buttonMStartHandler() {
+  if (buttonBounds(150, 1242, 115, 102)) {
+    aboutMClick = !aboutMClick;
+  } else if (buttonBounds(646, 1242, 115, 102)) {
+    projMClick = !projMClick;
+  }
+}
+
+function buttonMReleaseHandler() {
+  if (buttonBounds(150, 1242, 115, 102)) {
+    //openPage("about");
+    aboutMClick = !aboutMClick;
+  } else if (buttonBounds(646, 1242, 115, 102)) {
+    //openPage("projects");
+    projMClick = !projMClick;
+  }
 }

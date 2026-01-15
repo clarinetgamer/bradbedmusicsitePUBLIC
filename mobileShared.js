@@ -21,3 +21,12 @@ function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mou
     return false;
   }
 }
+
+function onMobileButton(bool, toprightx, toprighty) {
+  if (bool) {
+    w = ratioScale*140.0715;
+    h = ratioScale*130.8761;
+    padding = ratioScale*1.5;
+    image(animButtonImg, (ratioScale*toprightx)-(w-padding), ratioScale*toprighty, w, h);
+  }
+}

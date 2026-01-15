@@ -14,7 +14,7 @@ let lastChange = 0;
 let animCounter = 0;
 let animButtonImg;
 
-
+let test = true;
 
 
 // Load the image.
@@ -34,7 +34,9 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.mousePressed(userStartAudio);
     mic = new p5.AudioIn();
-    mic.start();
+    if (!test) {
+      mic.start();
+    }
     fft = new p5.FFT();
     fft.setInput(mic);
     //(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label)
@@ -65,6 +67,7 @@ function mouseClicked() {//mouse click/button control
     externalPatching();
   } else {
     mobileExternalPatching();
+    buttonMReleaseHandler();
   }
 }
 
@@ -77,6 +80,8 @@ function mousePressed() {
     voltsdivKnob.active();
     projMenKnob.active();
     songMenKnob.active();
+  } else {
+    buttonMStartHandler();
   }
 }
 
@@ -119,70 +124,4 @@ function openPage(htmlfilename) { //opens another page
 
 function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging
   image(clickbox, ratioScale*xstart, ratioScale*ystart, ratioScale*(xadd), ratioScale*(yadd));
-}
-
-//button vars
-let downloadClick = false;
-let maxClick = false;
-let aboutClick = false;
-let songMenClick = false;
-let projMenClick = false;
-let songClick = false;
-let projClick = false;
-
-function buttonHandler() {
-  onButton(downloadClick, 1036, 56);
-  onButton(maxClick, 1036, 101);
-  onButton(aboutClick, 1206, 348);
-  onButton(songMenClick, 1206, 74);
-  onButton(projMenClick, 1020, 209);
-  onButton(songClick, 1204, 218);
-  onButton(projClick, 1018, 370);
-}
-
-function buttonPressHandler() {
-  if (buttonBounds(997, 54, 40, 35)) {
-    downloadClick = !downloadClick;
-  } else if (buttonBounds(997, 100, 40, 35)) {
-    maxClick = !maxClick;
-  } else if (buttonBounds(1169, 348, 40, 35)) {
-    aboutClick = !aboutClick;
-  } else if (buttonBounds(1169, 74, 40, 35)) {
-    songMenClick = !songMenClick;
-    projMenClick = false;
-    oscillOn = false;
-  } else if (buttonBounds(983, 209, 40, 35)) {
-    projMenClick = !projMenClick;
-    songMenClick = false;
-    oscillOn = false;
-  } else if (buttonBounds(1167, 218, 40, 35)) {
-    songClick = !songClick;
-  } else if (buttonBounds(981, 370, 40, 35)) {
-    projClick = !projClick;
-  }
-}
-
-function buttonClickHandler() {
-  if (buttonBounds(450, 36, 467, 82)) {
-    openPage("index");
-  }
-  
-  if (buttonBounds(110, 100, 55, 35)) {
-    oscillOn = !oscillOn;
-    projMenClick = false;
-    songMenClick = false;
-  } else if (buttonBounds(997, 54, 40, 35)) {
-    openPage("downloads");
-    downloadClick = !downloadClick;
-  } else if (buttonBounds(997, 100, 40, 35)) {
-    openPage("maxpatches");
-    maxClick = !maxClick;
-  } else if (buttonBounds(1169, 348, 40, 35)) {
-    //openPage("aboutme");
-    aboutClick = !aboutClick;
-  } else if (buttonBounds(1167, 218, 40, 35)) {
-    songClick = !songClick;
-  } else if (buttonBounds(981, 370, 40, 35)) {
-    projClick = !projClick;
-  }
 }
