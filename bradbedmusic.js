@@ -1,5 +1,5 @@
 let cnv
-  let bg;
+let bg;
 let mobilebg;
 let clickbox;
 let off;
@@ -119,7 +119,7 @@ function noglow() { //resets oscilliscope glow effect
 }
 
 function openPage(htmlfilename) { //opens another page
-  window.location.href = htmlfilename+".html";
+  window.location.href = htmlfilename;
 }
 
 function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging

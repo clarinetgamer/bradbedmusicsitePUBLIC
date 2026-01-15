@@ -97,7 +97,7 @@ function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugg
 function touchEnded() {
   if (!desktop) {
     if (buttonBounds(220, 1703, 637, 66)) {
-      window.open("https://www.bradbedmusic.com");
+      window.open("https://www.bradbedmusic.com", "_self");
     }
     if (help) {
       if (buttonBounds(204, 1462, 679, 176)) {
@@ -139,7 +139,7 @@ function touchEnded() {
 function mouseClicked() {
   if (desktop) {
     if (buttonBounds(453, 676, 467, 46)) {
-      window.open("https://www.bradbedmusic.com");
+      window.open("https://www.bradbedmusic.com", "_self");
     }
   }
 }
