@@ -155,12 +155,16 @@ function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mou
 function helpWindow() {
   image(helpbg, 0, 0, ratioScale*1080, ratioScale*1840);
 }
-
+let imagescaler = capture.height;
 function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   push();
   scale(-1, 1);
+  if(desktop){
   image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
+  } else {
+  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443, 0, capture.height*.2, capture.width, capture.height*.5);
+  }
   pop();
   textSize(250*ratioScale);
   text(timer, 227*ratioScale, 560*ratioScale);
@@ -236,7 +240,7 @@ function printingScreen() {
 function digifyScreen() {
   cnvBuildDig = createCanvas(600, 1800);
   image(digiTemp, 0, 0, 600, 1800);
-  image(snap1, 50, 45, 501, 376);
+  image(snap1, 50, 45, 501, 376,0, capture.height*.2, capture.width, capture.height*.5);
   image(snap2, 50, 458, 501, 376);
   image(snap3, 50, 871, 501, 376);
   image(snap4, 50, 1284, 501, 376);
