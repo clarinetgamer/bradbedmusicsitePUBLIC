@@ -124,7 +124,7 @@ function buttonMReleaseHandler() {
     //openPage("about");
     aboutMClick = !aboutMClick;
   } else if (buttonBounds(646, 1242, 115, 102)) {
-    //openPage("projects");
+    openPage("projects");
     projMClick = !projMClick;
   }
 }
