@@ -160,97 +160,101 @@ function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   push();
   scale(-1, 1);
-  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
-  pop();
-  textSize(250*ratioScale);
-  text(timer, 227*ratioScale, 560*ratioScale);
-  countString = str(photoCounter+1)+ "/4";
-  textSize(90*ratioScale);
-  text(countString, 880*ratioScale, 564*ratioScale);
-  if (frameCount % 60 == 0 && timer > 0) {
-    timer --;
-  }
-  if (timer==0) {
-    main = false;
-    flash = true;
-    flashCounter = 2;
-  }
-}
-
-function flashScreen() {
-  background(255);
-  if (frameCount % 60 == 0 && flashCounter > 0) {
-    flashCounter --;
-  }
-  if (flashCounter == 1) {
-    //Take Photo
-    if (photoCounter == 0) {
-      snap1 = capture.get();
-    } else if (photoCounter == 1) {
-      snap2 = capture.get();
-    } else if (photoCounter == 2) {
-      snap3 = capture.get();
-    } else if (photoCounter == 3) {
-      snap4 = capture.get();
-    }
-  }
-  if (flashCounter==0) {
-    photoCounter ++;
-    flash = false;
-    main = true;
-    capture = createCapture(VIDEO);
-    capture.elt.setAttribute('playsinline', '');
-    capture.size(windowWidth, windowWidth*0.75);
-    capture.hide();
-    timer = 5;
-  }
-}
-
-function resetVars() {
-  moved = false;
-  help = true;
-  main = false;
-  flash = false;
-  finalScreen = false;
-  photoCounter = 0;
-  timer = 5;
-  exportmenu = false;
-}
-
-function printingScreen() {
-  cnvBuild = createCanvas(1200, 1800);
-  image(printTemp, 0, 0, 1200, 1800);
-  image(snap1, 50, 45, 501, 376);
-  image(snap1, 650, 45, 501, 376);
-  image(snap2, 50, 458, 501, 376);
-  image(snap2, 650, 458, 501, 376);
-  image(snap3, 50, 871, 501, 376);
-  image(snap3, 650, 871, 501, 376);
-  image(snap4, 50, 1284, 501, 376);
-  image(snap4, 650, 1284, 501, 376);
-  printSave = cnvBuild.get();
-  printScreen = false;
-  digiScreen = true;
-}
-
-function digifyScreen() {
-  cnvBuildDig = createCanvas(600, 1800);
-  image(digiTemp, 0, 0, 600, 1800);
-  image(snap1, 50, 45, 501, 376,0, capture.height*.2, capture.width, capture.height*.8);
-  image(snap2, 50, 458, 501, 376);
-  //image(snap3, 50, 871, 501, 376);
-  //image(snap4, 50, 1284, 501, 376);
-  digiSave = cnvBuildDig.get();
-  digiScreen = false;
-  finalScreen = true;
-}
-
-function windowResized() { //resize site on desktop
   if (desktop) {
-    if (windowHeight < 768) {
-      resizeCanvas(windowWidth, 768);
-    } else {
-      resizeCanvas(windowWidth, windowHeight);
+    image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
+  }else {
+      image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443, 0, capture.height*.2, capture.width, capture.height*.8);
+    }
+    pop();
+    textSize(250*ratioScale);
+    text(timer, 227*ratioScale, 560*ratioScale);
+    countString = str(photoCounter+1)+ "/4";
+    textSize(90*ratioScale);
+    text(countString, 880*ratioScale, 564*ratioScale);
+    if (frameCount % 60 == 0 && timer > 0) {
+      timer --;
+    }
+    if (timer==0) {
+      main = false;
+      flash = true;
+      flashCounter = 2;
     }
   }
-}
+
+  function flashScreen() {
+    background(255);
+    if (frameCount % 60 == 0 && flashCounter > 0) {
+      flashCounter --;
+    }
+    if (flashCounter == 1) {
+      //Take Photo
+      if (photoCounter == 0) {
+        snap1 = capture.get();
+      } else if (photoCounter == 1) {
+        snap2 = capture.get();
+      } else if (photoCounter == 2) {
+        snap3 = capture.get();
+      } else if (photoCounter == 3) {
+        snap4 = capture.get();
+      }
+    }
+    if (flashCounter==0) {
+      photoCounter ++;
+      flash = false;
+      main = true;
+      capture = createCapture(VIDEO);
+      capture.elt.setAttribute('playsinline', '');
+      capture.size(windowWidth, windowWidth*0.75);
+      capture.hide();
+      timer = 5;
+    }
+  }
+
+  function resetVars() {
+    moved = false;
+    help = true;
+    main = false;
+    flash = false;
+    finalScreen = false;
+    photoCounter = 0;
+    timer = 5;
+    exportmenu = false;
+  }
+
+  function printingScreen() {
+    cnvBuild = createCanvas(1200, 1800);
+    image(printTemp, 0, 0, 1200, 1800);
+    image(snap1, 50, 45, 501, 376);
+    image(snap1, 650, 45, 501, 376);
+    image(snap2, 50, 458, 501, 376);
+    image(snap2, 650, 458, 501, 376);
+    image(snap3, 50, 871, 501, 376);
+    image(snap3, 650, 871, 501, 376);
+    image(snap4, 50, 1284, 501, 376);
+    image(snap4, 650, 1284, 501, 376);
+    printSave = cnvBuild.get();
+    printScreen = false;
+    digiScreen = true;
+  }
+
+  function digifyScreen() {
+    cnvBuildDig = createCanvas(600, 1800);
+    image(digiTemp, 0, 0, 600, 1800);
+    image(snap1, 50, 45, 501, 376, 0, capture.height*.2, capture.width, capture.height*.8);
+    image(snap2, 50, 458, 501, 376,  0, capture.height*.2, capture.width, capture.height*.8);
+    image(snap3, 50, 871, 501, 376);
+    //image(snap4, 50, 1284, 501, 376);
+    digiSave = cnvBuildDig.get();
+    digiScreen = false;
+    finalScreen = true;
+  }
+
+  function windowResized() { //resize site on desktop
+    if (desktop) {
+      if (windowHeight < 768) {
+        resizeCanvas(windowWidth, 768);
+      } else {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    }
+  }
