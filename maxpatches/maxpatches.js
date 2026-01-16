@@ -1,11 +1,7 @@
-let maxbg;
-let clickbox;
-let ratioScale;
-
 function setup() {
   maxbg = loadImage('assets/maxpatches.png');
   clickbox = loadImage('assets/CLICKBOX.png');
-
+  animButtonImg = loadImage('assets/clickedbutt.png');
   let cnv = createCanvas(windowWidth, windowHeight);
 }
 
@@ -14,6 +10,7 @@ function draw() {
   background(221, 210, 192);
   ratioScale = windowWidth/1366;
   image(maxbg, 0, 0, ratioScale*1366, ratioScale*768);
+  buttonHandler();
 }
 
 function windowResized() {
@@ -29,6 +26,11 @@ function mouseClicked() {
   if (buttonBounds(450, 36, 467, 82)) {
     window.open("https://www.bradbedmusic.com", "_self");
   }
+  buttonClickHandler();
+}
+
+function mousePressed() {
+  buttonPressHandler();
 }
 
 
@@ -64,5 +66,54 @@ function onButton(bool, toprightx, toprighty) {
     h = ratioScale*39.9094;
     padding = ratioScale*1.5;
     image(animButtonImg, (ratioScale*toprightx)-(w-padding), ratioScale*toprighty, w, h);
+  }
+}
+
+let bc1r1 = false;
+let bc1r2 = false;
+let bc1r3 = false;
+let bc1r4 = false;
+let bc1r5 = false;
+let bc1r6 = false;
+
+function buttonHandler() {
+  onButton(bc1r1, 96, 153);
+  onButton(bc1r2, 96, 206);
+  onButton(bc1r3, 96, 260);
+  onButton(bc1r4, 96, 313);
+  onButton(bc1r5, 96, 367);
+  onButton(bc1r6, 96, 420);
+}
+
+function buttonPressHandler() {
+  if (buttonBounds(59, 153, 37, 33)) {
+    bc1r1 = !bc1r1;
+  } else if (buttonBounds(59, 206, 37, 33)) {
+    bc1r2 = !bc1r2;
+  } else if (buttonBounds(59, 260, 37, 33)) {
+    bc1r3 = !bc1r3;
+  } else if (buttonBounds(59, 313, 37, 33)) {
+    bc1r4 = !bc1r4;
+  } else if (buttonBounds(59, 367, 37, 33)) {
+    bc1r5 = !bc1r5;
+  } else if (buttonBounds(59, 420, 37, 33)) {
+    bc1r6 = !bc1r6;
+  }
+}
+
+function buttonClickHandler() {
+  if (buttonBounds(59, 153, 37, 33)) {
+    window.open("patches/CATCompressorLimiter.maxpat")
+    bc1r1 = !bc1r1;
+  } else if (buttonBounds(59, 206, 37, 33)) {
+    bc1r2 = !bc1r2;
+  } else if (buttonBounds(59, 260, 37, 33)) {
+    bc1r3 = !bc1r3;
+  } else if (buttonBounds(59, 313, 37, 33)) {
+    bc1r4 = !bc1r4;
+  } else if (buttonBounds(59, 367, 37, 33)) {
+    bc1r5 = !bc1r5;
+  } else if (buttonBounds(59, 420, 37, 33)) {
+    bc1r6 = !bc1r6;
   }
 }
