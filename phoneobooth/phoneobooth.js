@@ -23,105 +23,112 @@ let digiSave;
 let exportCount = 2;
 let exportmenu = false;
 let desktop = false;
+let translation = 0;
+
+function preload() {
+  helpbg = loadImage('assets/help.png');
+  mainbg = loadImage('assets/main.png');
+  exportbg = loadImage('assets/export.png');
+  clickbox = loadImage('assets/CLICKBOX.png');
+  printTemp = loadImage('assets/printtemp.png');
+  digiTemp = loadImage('assets/digitemp.png');
+  exportMenuBg = loadImage('assets/exportmenu.png');
+}
 
 function setup() {
   if (windowWidth > windowHeight) {
-    comp = loadImage('assets/compscreen.png');
     cnv = createCanvas(windowWidth, windowHeight);
-        desktop = true;
-
+    desktop = true;
   } else {
-    helpbg = loadImage('assets/help.png');
-    mainbg = loadImage('assets/main.png');
-    exportbg = loadImage('assets/export.png');
-    clickbox = loadImage('assets/CLICKBOX.png');
-    printTemp = loadImage('assets/printtemp.png');
-    digiTemp = loadImage('assets/digitemp.png');
-    exportMenuBg = loadImage('assets/exportmenu.png');
     cnv = createCanvas(windowWidth, windowWidth*1.7);
-    capture = createCapture(VIDEO);
-    capture.elt.setAttribute('playsinline', '');
-    capture.size(windowWidth, windowWidth*0.75);
-    capture.hide();
-    textAlign(CENTER, CENTER);
-    fill('white');
-    stroke('black');
-    strokeWeight(4);
   }
+  capture = createCapture(VIDEO);
+  capture.elt.setAttribute('playsinline', '');
+  capture.hide();
+  textAlign(CENTER, CENTER);
+  fill('white');
+  stroke('black');
+  strokeWeight(4);
 }
 
 
 function draw() {
+  background(241, 95, 91);
+  push();
   if (desktop) {
-    background(241,95,91);
-    ratioScale = windowWidth/1366;
-    image(comp, 0, 0, 1366*ratioScale, 768*ratioScale);
+    ratioScale = windowHeight/1840;
+    translation = (windowWidth/2)-((ratioScale*1080)/2)
+      translate(translation, 0);
   } else {
-    background(255);
     ratioScale = windowWidth/1080;
-    if (help) {
-      helpWindow();
-    }
-    if (main) {
-      if (photoCounter < 4) {
-        mainWindow();
-      } else {
-        printScreen = true;
-        main = false;
-      }
-    }
-    if (flash) {
-      flashScreen();
-    }
-    if (printScreen) {
-      printingScreen();
-    }
-    if (digiScreen) {
-      digifyScreen();
-    }
-    if (finalScreen) {
-      cnv = createCanvas(windowWidth, windowWidth*1.7);
-      image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
-      image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
-      if (exportmenu) {
-        image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
-      }
+  }
+  if (help) {
+    helpWindow();
+  }
+  if (main) {
+    if (photoCounter < 4) {
+      mainWindow();
+    } else {
+      printScreen = true;
+      main = false;
     }
   }
+  if (flash) {
+    flashScreen();
+  }
+  if (printScreen) {
+    printingScreen();
+  }
+  if (digiScreen) {
+    digifyScreen();
+  }
+  pop();
+  push();
+  if (finalScreen) {
+    if (desktop) {
+      cnv = createCanvas(windowWidth, windowWidth);
+      translate(translation, 0);
+    } else {
+      cnv = createCanvas(windowWidth, windowWidth*1.7);
+    }
+    background(241, 95, 91);
+    image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
+    image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
+    if (exportmenu) {
+      image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
+    }
+  }
+  pop();
 }
 
 function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging
-  image(clickbox, ratioScale*xstart, ratioScale*ystart, ratioScale*(xadd), ratioScale*(yadd));
+  image(clickbox, translation+(ratioScale*xstart), ratioScale*ystart, ratioScale*(xadd), ratioScale*(yadd));
 }
 
 function touchEnded() {
-  if (!desktop) {
-    if (buttonBounds(220, 1703, 637, 66)) {
-      window.open("https://www.bradbedmusic.com", "_self");
+  if (buttonBounds(220, 1703, 637, 66)) {
+    window.open("https://www.bradbedmusic.com", "_self");
+  }
+  if (help) {
+    if (buttonBounds(204, 1462, 679, 176)) {
+      help = false;
+      main = true;
     }
-    if (help) {
-      if (buttonBounds(204, 1462, 679, 176)) {
-        help = false;
-        main = true;
-      }
+  } else if (main) {
+    if (buttonBounds(252, 1545, 573, 94)) {
+      help = true;
+      main = false;
+      resetVars();
     }
-    if (main) {
-      if (buttonBounds(252, 1545, 573, 94)) {
-        help = true;
-        main = false;
-        resetVars();
-      }
+  } else if (finalScreen) {
+    if (buttonBounds(563, 1548, 457, 94)) {
+      help = true;
+      main = false;
+      finalScreen = false;
+      resetVars();
     }
-    if (finalScreen) {
-      if (buttonBounds(563, 1548, 457, 94)) {
-        help = true;
-        main = false;
-        finalScreen = false;
-        resetVars();
-      }
-      if (buttonBounds(56, 1548, 457, 94)) {
-        exportmenu = true;
-      }
+    if (buttonBounds(56, 1548, 457, 94)) {
+      exportmenu = true;
     }
     if (exportmenu) {
       if (buttonBounds(235, 607, 610, 94)) {
@@ -136,16 +143,8 @@ function touchEnded() {
   }
 }
 
-function mouseClicked() {
-  if (desktop) {
-    if (buttonBounds(453, 676, 467, 46)) {
-      window.open("https://www.bradbedmusic.com", "_self");
-    }
-  }
-}
-
 function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mouse is in the bounds of a button
-  if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yadd)) && (ratioScale*xstart <= mouseX && mouseX <= ratioScale*(xstart+xadd))) {
+  if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yadd)) && ((ratioScale*xstart)+translation <= mouseX && mouseX <= (ratioScale*(xstart+xadd))+translation)) {
     return true;
   } else {
     return false;
@@ -160,7 +159,7 @@ function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   push();
   scale(-1, 1);
-  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
+  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443, 0, 0, windowWidth, windowWidth*.6);
   pop();
   textSize(250*ratioScale);
   text(timer, 227*ratioScale, 560*ratioScale);
@@ -178,6 +177,7 @@ function mainWindow() {
 }
 
 function flashScreen() {
+  background(255);
   if (frameCount % 60 == 0 && flashCounter > 0) {
     flashCounter --;
   }
@@ -219,14 +219,14 @@ function resetVars() {
 function printingScreen() {
   cnvBuild = createCanvas(1200, 1800);
   image(printTemp, 0, 0, 1200, 1800);
-  image(snap1, 50, 45, 501, 376);
-  image(snap1, 650, 45, 501, 376);
-  image(snap2, 50, 458, 501, 376);
-  image(snap2, 650, 458, 501, 376);
-  image(snap3, 50, 871, 501, 376);
-  image(snap3, 650, 871, 501, 376);
-  image(snap4, 50, 1284, 501, 376);
-  image(snap4, 650, 1284, 501, 376);
+  image(snap1, 50, 45, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap1, 650, 45, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap2, 50, 458, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap2, 650, 458, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap3, 50, 871, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap3, 650, 871, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap4, 50, 1284, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap4, 650, 1284, 501, 376,0, 0, windowWidth, windowWidth*.6);
   printSave = cnvBuild.get();
   printScreen = false;
   digiScreen = true;
@@ -235,10 +235,10 @@ function printingScreen() {
 function digifyScreen() {
   cnvBuildDig = createCanvas(600, 1800);
   image(digiTemp, 0, 0, 600, 1800);
-  image(snap1, 50, 45, 501, 376);
-  image(snap2, 50, 458, 501, 376);
-  image(snap3, 50, 871, 501, 376);
-  image(snap4, 50, 1284, 501, 376);
+  image(snap1, 50, 45, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap2, 50, 458, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap3, 50, 871, 501, 376,0, 0, windowWidth, windowWidth*.6);
+  image(snap4, 50, 1284, 501, 376,0, 0, windowWidth, windowWidth*.6);
   digiSave = cnvBuildDig.get();
   digiScreen = false;
   finalScreen = true;
