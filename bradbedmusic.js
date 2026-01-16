@@ -13,7 +13,6 @@ let dec = false;
 let lastChange = 0;
 let animCounter = 0;
 let animButtonImg;
-
 let test = false;
 
 
@@ -24,6 +23,10 @@ function preload() {
   clickbox = loadImage('assets/CLICKBOX.png');
   off = loadImage('assets/off.png');
   animButtonImg = loadImage('assets/clickedbutt.png');
+  photoscreen = loadImage('assets/phoneoproj.png');
+  snowscreen = loadImage('assets/snowproj.png');
+  smplscreen = loadImage('assets/smplproj.png');
+  csscreen = loadImage('assets/soonproj.png');
 }
 
 function setup() {
@@ -40,12 +43,13 @@ function setup() {
     fft = new p5.FFT();
     fft.setInput(mic);
     //(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label)
-    xposKnob = new AdjustingKnob('assets/knob.png', 51, 274, 125, 0, 100, 50, 2, "");
-    yposKnob = new AdjustingKnob('assets/knob.png', 51, 362, 125, 0, 100, 50, 2, "");
-    timedivKnob = new AdjustingKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, "");
-    voltsdivKnob = new AdjustingKnob('assets/bigknob.png', 104, 308, 297, 0, 6, 3, 2, "");
-    projMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1057, 290, 0, 6, 0, 2, "");
-    songMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1243, 146, 0, 6, 0, 2, "");
+    xposKnob = new AdjustingKnob('assets/knob.png', 51, 274, 125, 0, 100, 50, 2, true);
+    yposKnob = new AdjustingKnob('assets/knob.png', 51, 362, 125, 0, 100, 50, 2, true);
+    timedivKnob = new AdjustingKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, true);
+    voltsdivKnob = new AdjustingKnob('assets/bigknob.png', 104, 308, 297, 0, 6, 3, 2, true);
+    projMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1057, 290, 0, 10, 0, 2, false);
+    songMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1243, 146, 0, 10, 0, 2, false);
+    projscroller = 0;
   }
 }
 

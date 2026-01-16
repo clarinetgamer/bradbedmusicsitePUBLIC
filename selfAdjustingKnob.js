@@ -1,6 +1,6 @@
 // Based on Miles DeCoster's knobMake Library - codeforartists.com
 
-function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, label) {
+function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, neg) {
   this.pos = createVector(0,0);
   this.pos.x = locx*ratioScale;
   this.pos.y = locy*ratioScale;
@@ -12,8 +12,8 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
   this.knobValue = defaultNum;
   this.displayValue=0;
   this.isClickedOn = false;
-  this.myY;
-  this.label=label;
+  this.myX;
+  this.neg = neg;
   this.numPlaces = numPlaces;
   // this.img = loadImage('knob.svg');
   this.img = loadImage(imgSrc);
@@ -33,20 +33,12 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
   	// move the origin to the pivot point
   	translate(this.pos.x, this.pos.y); 
   
-  	// then rotate the grid around the pivot point by a
-  	// number of degrees based on drag on button
-    // if (mouseIsPressed && dist(this.pos.x, this.pos.y, mouseX, mouseY) < this.diameter/2){
-    //  this.isClickedOn = true; 
-    //  this.myY=mouseY;   
-    //}
-    
-    //if (!mouseIsPressed) {
-    //  this.currentRot=this.rotateMe;
-    //  this.isClickedOn = false;
-    //}
-  
   	if (mouseIsPressed && this.isClickedOn) { 
-  	  this.rotateMe=this.currentRot+map(mouseY, this.myY, 600, 0, 360);
+    if(neg){
+  	  this.rotateMe=this.currentRot+map(mouseX, this.myX, 600, 0, -360);
+    } else {
+    this.rotateMe=this.currentRot+map(mouseX, this.myX, 600, 0, 360);
+    }
   	  this.rotateMe=int(this.rotateMe);
   	  if (this.rotateMe <  -280) { this.rotateMe = -280; }
   	  if (this.rotateMe > 0) { this.rotateMe = 0; }
@@ -74,7 +66,7 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
   this.active = function() {
     if (dist(this.pos.x, this.pos.y, mouseX, mouseY) < this.diameter/2){
       this.isClickedOn = true; 
-      this.myY=mouseY;   
+      this.myX=mouseX;   
     } else {
       this.isClickedOn = false;
     }
@@ -85,4 +77,4 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
     this.isClickedOn = false;
   }
 
-} // end KnobMaker
+} 

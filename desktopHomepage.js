@@ -33,7 +33,7 @@ function drawDesktop() { //draw for desktop site
   } else if (projMenClick) {
     projectsMenu();
   } else if (songMenClick) {
-    projectsMenu();
+    songsMenu();
   }
   xposKnob.update();
   yposKnob.update();
@@ -41,27 +41,8 @@ function drawDesktop() { //draw for desktop site
   voltsdivKnob.update();
   projMenKnob.update();
   songMenKnob.update();
+  projscroller = int(projMenKnob.knobValue);
 }
-
-
-function projectsMenu() {
-comingSoon();
-}
-
-function songsMenu() {
-  comingSoon();
-}
-
-function comingSoon() {
-  noFill();
-  beginShape();
-  stroke(113, 222, 146);
-  strokeWeight(2);
-  textAlign(CENTER, CENTER);
-  textSize(38*ratioScale);
-  text('COMING SOON', 682*ratioScale, 140*ratioScale);
-}
-
 
 //button vars
 let downloadClick = false;
@@ -100,6 +81,7 @@ function buttonPressHandler() {
   } else if (buttonBounds(1167, 218, 40, 35)) {
     songClick = !songClick;
   } else if (buttonBounds(981, 370, 40, 35)) {
+    projLinks();
     projClick = !projClick;
   }
 }
@@ -162,4 +144,36 @@ function onButton(bool, toprightx, toprighty) {
     padding = ratioScale*1.5;
     image(animButtonImg, (ratioScale*toprightx)-(w-padding), ratioScale*toprighty, w, h);
   }
+}
+
+function drawProject(img) {
+  image(img, 435.1431*ratioScale, 95.2227*ratioScale, 495.7139*ratioScale, 324.2988*ratioScale);
+}
+
+function projectsMenu() {
+  if (projscroller == 0) {
+    drawProject(photoscreen);
+  } else if (projscroller == 1) {
+    drawProject(snowscreen);
+  } else if (projscroller == 2) {
+    drawProject(smplscreen);
+  } else {
+    drawProject(csscreen);
+  }
+}
+
+function projLinks() {
+  if (projMenClick) {
+    if (projscroller == 0) {
+      window.location.href = "phoneobooth";
+    } else if (projscroller == 1) {
+      window.open('https://www.instagram.com/p/DR7rhwjgYwj/?igsh=MWV6bDQwODJ4eTdnag==', "_self");
+    } else if (projscroller == 2) {
+      window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
+    }
+  }
+}
+
+function songsMenu() {
+  drawProject(csscreen);
 }
