@@ -92,8 +92,8 @@ function touchMoved() {
 function touchStarted() {
   if (!desktop) {
     moved = false;
+    buttonMStartHandler();
   }
-  buttonMStartHandler();
 }
 
 function drawMobile() { //draw mobile site

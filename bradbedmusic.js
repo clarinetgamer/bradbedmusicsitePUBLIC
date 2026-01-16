@@ -1,4 +1,4 @@
-let cnv
+let cnv;
 let bg;
 let mobilebg;
 let clickbox;
