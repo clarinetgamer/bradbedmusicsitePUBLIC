@@ -171,6 +171,7 @@ function mainWindow() {
     countString = str(photoCounter+1)+ "/4";
     textSize(90*ratioScale);
     text(countString, 880*ratioScale, 564*ratioScale);
+    if(capture.loadedmetadata){
     if (frameCount % 60 == 0 && timer > 0) {
       timer --;
     }
@@ -178,6 +179,7 @@ function mainWindow() {
       main = false;
       flash = true;
       flashCounter = 2;
+    }
     }
   }
 
@@ -241,8 +243,8 @@ function mainWindow() {
     cnvBuildDig = createCanvas(600, 1800);
     image(digiTemp, 0, 0, 600, 1800);
     image(snap1, 50, 45, 501, 376, 0, capture.height*.2, capture.width, capture.height*.8);
-    image(snap2, 50, 458, 501, 376,  0, capture.height*.2, capture.width, capture.height*.8);
-    image(snap3, 50, 871, 501, 376);
+    image(snap2, 50, 458, 501, 376);
+    //image(snap3, 50, 871, 501, 376);
     //image(snap4, 50, 1284, 501, 376);
     digiSave = cnvBuildDig.get();
     digiScreen = false;
