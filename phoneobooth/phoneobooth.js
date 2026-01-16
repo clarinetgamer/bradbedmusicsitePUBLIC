@@ -236,10 +236,10 @@ function printingScreen() {
 function digifyScreen() {
   cnvBuildDig = createCanvas(600, 1800);
   image(digiTemp, 0, 0, 600, 1800);
-  image(snap1, 50, 45, 501, 376,0, capture.height*.2, capture.width, capture.height*.5);
+  image(snap1, 50, 45, 501, 376,0, capture.height*.2, capture.width, capture.height*.8);
   image(snap2, 50, 458, 501, 376);
   //image(snap3, 50, 871, 501, 376);
-  image(snap4, 50, 1284, 501, 376);
+  //image(snap4, 50, 1284, 501, 376);
   digiSave = cnvBuildDig.get();
   digiScreen = false;
   finalScreen = true;
