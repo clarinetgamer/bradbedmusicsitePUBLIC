@@ -103,7 +103,7 @@ function buttonClickHandler() {
     openPage("maxpatches");
     maxClick = !maxClick;
   } else if (buttonBounds(1169, 348, 40, 35)) {
-    //openPage("aboutme");
+    openPage("about");
     aboutClick = !aboutClick;
   } else if (buttonBounds(1167, 218, 40, 35)) {
     songClick = !songClick;
