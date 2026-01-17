@@ -1,3 +1,25 @@
+function drawDesktop() { //draw for desktop site
+  image(bg, 0, 0, ratioScale*1366, ratioScale*768);
+  buttonHandler();
+  if (oscillOn == false) {
+    image(off, 0, 0, ratioScale*198, ratioScale*151);
+  }
+  if (oscillOn) {
+    drawOscill();
+  } else if (projMenClick) {
+    projectsMenu();
+  } else if (songMenClick) {
+    songsMenu();
+  }
+  xposKnob.update();
+  yposKnob.update();
+  timedivKnob.update();
+  voltsdivKnob.update();
+  projMenKnob.update();
+  songMenKnob.update();
+  projscroller = int(projMenKnob.knobValue);
+}
+
 function drawOscill() { //draw desktop oscilloscope
   let waveform = fft.waveform();
   let oscillaScale = [0.05, 0.07, 0.10, 0.25, 0.50, 0.75, 1.00];
@@ -19,29 +41,6 @@ function drawOscill() { //draw desktop oscilloscope
   }
   endShape();
   noglow();
-}
-
-
-function drawDesktop() { //draw for desktop site
-  image(bg, 0, 0, ratioScale*1366, ratioScale*768);
-  buttonHandler();
-  if (oscillOn == false) {
-    image(off, 0, 0, ratioScale*198, ratioScale*151);
-  }
-  if (oscillOn) {
-    drawOscill();
-  } else if (projMenClick) {
-    projectsMenu();
-  } else if (songMenClick) {
-    songsMenu();
-  }
-  xposKnob.update();
-  yposKnob.update();
-  timedivKnob.update();
-  voltsdivKnob.update();
-  projMenKnob.update();
-  songMenKnob.update();
-  projscroller = int(projMenKnob.knobValue);
 }
 
 //button vars
@@ -72,10 +71,12 @@ function buttonPressHandler() {
     aboutClick = !aboutClick;
   } else if (buttonBounds(1169, 74, 40, 35)) {
     songMenClick = !songMenClick;
+    songMenKnob.reset();
     projMenClick = false;
     oscillOn = false;
   } else if (buttonBounds(983, 209, 40, 35)) {
     projMenClick = !projMenClick;
+    projMenKnob.reset();
     songMenClick = false;
     oscillOn = false;
   } else if (buttonBounds(1167, 218, 40, 35)) {
