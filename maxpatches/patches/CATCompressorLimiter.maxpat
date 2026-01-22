@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 134.0, 100.0, 1045.0, 788.0 ],
+		"rect" : [ 134.0, 100.0, 1045.0, 787.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 11.0,
 		"gridsize" : [ 15.0, 15.0 ],
@@ -7874,14 +7874,14 @@
 		"dependency_cache" : [ 			{
 				"name" : "850-8505089_gato-line-art.png",
 				"bootpath" : "~/Downloads",
-				"patcherrelativepath" : "../Downloads",
+				"patcherrelativepath" : "../../../../../Downloads",
 				"type" : "PNG",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "untitled_20251111_2.maxsnap",
 				"bootpath" : "~/Documents/Max 9/Snapshots",
-				"patcherrelativepath" : "./Max 9/Snapshots",
+				"patcherrelativepath" : "../../../../Max 9/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}

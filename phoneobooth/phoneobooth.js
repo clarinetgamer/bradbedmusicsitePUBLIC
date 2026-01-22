@@ -24,6 +24,7 @@ let exportCount = 2;
 let exportmenu = false;
 let desktop = false;
 let translation = 0;
+let heightScale;
 
 function preload() {
   helpbg = loadImage('assets/help.png');
@@ -50,6 +51,7 @@ function setup() {
   fill('white');
   stroke('black');
   strokeWeight(4);
+  heightScale = (capture.height)/2;
 }
 
 
@@ -160,7 +162,7 @@ function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   push();
   scale(-1, 1);
-  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
+  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443, 0, 0, capture.width, heightScale);
   pop();
   textSize(250*ratioScale);
   text(timer, 227*ratioScale, 560*ratioScale);
@@ -220,14 +222,14 @@ function resetVars() {
 function printingScreen() {
   cnvBuild = createCanvas(1200, 1800);
   image(printTemp, 0, 0, 1200, 1800);
-  image(snap1, 50, 45, 501, 376);
-  image(snap1, 650, 45, 501, 376);
-  image(snap2, 50, 458, 501, 376);
-  image(snap2, 650, 458, 501, 376);
-  image(snap3, 50, 871, 501, 376);
-  image(snap3, 650, 871, 501, 376);
-  image(snap4, 50, 1284, 501, 376);
-  image(snap4, 650, 1284, 501, 376);
+  image(snap1, 50, 45, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap1, 650, 45, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap2, 50, 458, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap2, 650, 458, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap3, 50, 871, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap3, 650, 871, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap4, 50, 1284, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap4, 650, 1284, 501, 376, 0, 0, capture.width, heightScale);
   printSave = cnvBuild.get();
   printScreen = false;
   digiScreen = true;
@@ -236,10 +238,10 @@ function printingScreen() {
 function digifyScreen() {
   cnvBuildDig = createCanvas(600, 1800);
   image(digiTemp, 0, 0, 600, 1800);
-  image(snap1, 50, 45, 501, 376);
-  image(snap2, 50, 458, 501, 376);
-  image(snap3, 50, 871, 501, 376);
-  image(snap4, 50, 1284, 501, 376);
+  image(snap1, 50, 45, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap2, 50, 458, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap3, 50, 871, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap4, 50, 1284, 501, 376, 0, 0, capture.width, heightScale);
   digiSave = cnvBuildDig.get();
   digiScreen = false;
   finalScreen = true;
