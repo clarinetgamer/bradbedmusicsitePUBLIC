@@ -51,7 +51,7 @@ function setup() {
   fill('white');
   stroke('black');
   strokeWeight(4);
-  heightScale = (capture.height)/2;
+  heightScale = capture.height;
 }
 
 
