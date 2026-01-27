@@ -24,7 +24,7 @@ let exportCount = 2;
 let exportmenu = false;
 let desktop = false;
 let translation = 0;
-let heightScale;
+let photomax;
 
 function preload() {
   helpbg = loadImage('assets/help.png');
@@ -33,6 +33,8 @@ function preload() {
   clickbox = loadImage('assets/CLICKBOX.png');
   printTemp = loadImage('assets/printtemp.png');
   digiTemp = loadImage('assets/digitemp.png');
+  printTempM = loadImage('assets/printtempm.png');
+  digiTempM = loadImage('assets/digitempm.png');
   exportMenuBg = loadImage('assets/exportmenu.png');
 }
 
@@ -40,8 +42,10 @@ function setup() {
   if (windowWidth > windowHeight) {
     cnv = createCanvas(windowWidth, windowHeight);
     desktop = true;
+    photomax = 4;
   } else {
     cnv = createCanvas(windowWidth, windowWidth*1.7);
+    photomax = 3;
   }
   capture = createCapture(VIDEO);
   capture.elt.setAttribute('playsinline', '');
@@ -69,7 +73,7 @@ function draw() {
     helpWindow();
   }
   if (main) {
-    if (photoCounter < 4) {
+    if (photoCounter < photomax) {
       mainWindow();
     } else {
       printScreen = true;
@@ -162,11 +166,11 @@ function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   push();
   scale(-1, 1);
-  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443, 0, 0, capture.width, heightScale);
+  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
   pop();
   textSize(250*ratioScale);
   text(timer, 227*ratioScale, 560*ratioScale);
-  countString = str(photoCounter+1)+ "/4";
+  countString = str(photoCounter+1)+ "/"+photomax;
   textSize(90*ratioScale);
   text(countString, 880*ratioScale, 564*ratioScale);
   if (frameCount % 60 == 0 && timer > 0) {
@@ -220,28 +224,69 @@ function resetVars() {
 }
 
 function printingScreen() {
+if(desktop) {
+printingScreenD();
+} else {
+printingScreenM();
+}
+}
+
+function digifyScreen() {
+if(desktop) {
+digifyScreenD();
+} else {
+digifyScreenM();
+}
+}
+
+function printingScreenD() {
   cnvBuild = createCanvas(1200, 1800);
   image(printTemp, 0, 0, 1200, 1800);
-  image(snap1, 50, 45, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap1, 650, 45, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap2, 50, 458, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap2, 650, 458, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap3, 50, 871, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap3, 650, 871, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap4, 50, 1284, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap4, 650, 1284, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap1, 50, 45, 501, 376);
+  image(snap1, 650, 45, 501, 376);
+  image(snap2, 50, 458, 501, 376);
+  image(snap2, 650, 458, 501, 376);
+  image(snap3, 50, 871, 501, 376);
+  image(snap3, 650, 871, 501, 376);
+  image(snap4, 50, 1284, 501, 376);
+  image(snap4, 650, 1284, 501, 376);
   printSave = cnvBuild.get();
   printScreen = false;
   digiScreen = true;
 }
 
-function digifyScreen() {
+function digifyScreenD() {
   cnvBuildDig = createCanvas(600, 1800);
   image(digiTemp, 0, 0, 600, 1800);
-  image(snap1, 50, 45, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap2, 50, 458, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap3, 50, 871, 501, 376, 0, 0, capture.width, heightScale);
-  image(snap4, 50, 1284, 501, 376, 0, 0, capture.width, heightScale);
+  image(snap1, 50, 45, 501, 376);
+  image(snap2, 50, 458, 501, 376);
+  image(snap3, 50, 871, 501, 376);
+  image(snap4, 50, 1284, 501, 376);
+  digiSave = cnvBuildDig.get();
+  digiScreen = false;
+  finalScreen = true;
+}
+
+function printingScreenM() {
+  cnvBuild = createCanvas(1200, 1800);
+  image(printTempM, 0, 0, 1200, 1800);
+  image(snap1, 126, 13, 458, 580);
+  image(snap2, 126, 610, 458, 580);
+  image(snap3, 126, 1207, 458, 580);
+  image(snap1, 726, 13, 458, 580);
+  image(snap2, 726, 610, 458, 580);
+  image(snap3, 726, 1207, 458, 580);
+  printSave = cnvBuild.get();
+  printScreen = false;
+  digiScreen = true;
+}
+
+function digifyScreenM() {
+  cnvBuildDig = createCanvas(600, 1800);
+  image(digiTempM, 0, 0, 600, 1800);
+  image(snap1, 126, 13, 458, 580);
+  image(snap2, 126, 610, 458, 580);
+  image(snap3, 126, 1207, 458, 580);
   digiSave = cnvBuildDig.get();
   digiScreen = false;
   finalScreen = true;
