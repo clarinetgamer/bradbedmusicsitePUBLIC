@@ -33,12 +33,16 @@ let bwfilter = false;
 let currentcolor = 0;
 let colors;
 let colormax;
+let currentcover = 0;
+let covermax = 3;
 let framecolordark = false;
+
 
 function preload() {
   helpbg = loadImage('assets/help.png');
   mainbg = loadImage('assets/main.png');
   exportbg = loadImage('assets/export.png');
+  exportbgdesktop = loadImage('assets/exportdesk.png');
   clickbox = loadImage('assets/CLICKBOX.png');
   printTemp = loadImage('assets/printtemp.png');
   digiTemp = loadImage('assets/digitemp.png');
@@ -51,6 +55,15 @@ function preload() {
   exportMenuBg = loadImage('assets/exportmenu.png');
   bwdot = loadImage('assets/bwdot.png');
   coldot = loadImage('assets/coldot.png');
+  micedot = loadImage('assets/micedot.png');
+  micedigi = loadImage('assets/digitempmice.png');
+  miceprint = loadImage('assets/printtempmice.png');
+  mousedot = loadImage('assets/mousedot.png');
+  mousedigi =loadImage('assets/digitempmouse.png');
+  mouseprint =loadImage('assets/printtempmouse.png');
+  planedot = loadImage('assets/planedot.png');
+  planedigi =loadImage('assets/digitempplane.png');
+  planeprint =loadImage('assets/printtempplane.png');
 }
 
 function setup() {
@@ -72,16 +85,17 @@ function setup() {
   strokeWeight(4);
   heightScale = capture.height;
   white =color(255, 255, 255);
-  sky = color(186,225,255);
-  lavender = color(201,201,255);
-  sunbeam = color(255,255,186);
-  tangerine = color(255,209,173);
-  rose = color(255,189,189);
-  green = color(186,255,201);
+  sky = color(186, 225, 255);
+  lavender = color(201, 201, 255);
+  sunbeam = color(255, 255, 186);
+  tangerine = color(255, 209, 173);
+  rose = color(255, 189, 189);
+  green = color(186, 255, 201);
   black =color(0, 0, 0);
   colors = [white, sky, lavender, sunbeam, tangerine, rose, green, black];
   colormax = colors.length - 1;
-
+  coverImageD = digiTempM;
+  coverImageP = printTempM;
 }
 
 
@@ -125,11 +139,15 @@ function draw() {
       cnv = createCanvas(windowWidth, windowWidth*1.7);
     }
     background(241, 95, 91);
-
-    image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
+    if (desktop) {
+      image(exportbgdesktop, 0, 0, ratioScale*1080, ratioScale*1840);
+    } else {
+      image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
+    }
     image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
     drawFilterDot();
     drawColorDot();
+    if(!desktop){drawCoverDot();}
     if (exportmenu) {
       image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
     }
@@ -171,6 +189,9 @@ function touchEnded() {
     }
     if (buttonBounds(79, 1266, 174, 174)) {
       changeColor();
+    }
+    if (!desktop && buttonBounds(79, 897, 174, 174) && !framecolordark) {
+      changeCover();
     }
     if (exportmenu) {
       if (buttonBounds(235, 607, 610, 94)) {
@@ -360,7 +381,7 @@ function printingScreenM() {
   if (framecolordark) {
     image(printTempWM, 0, 0, 1200, 1800);
   } else {
-    image(printTempM, 0, 0, 1200, 1800);
+    image(coverImageP, 0, 0, 1200, 1800);
   }
   printSave = cnvBuild.get();
   printScreen = false;
@@ -382,7 +403,7 @@ function digifyScreenM() {
   if (framecolordark) {
     image(digiTempWM, 0, 0, 600, 1800);
   } else {
-    image(digiTempM, 0, 0, 600, 1800);
+    image(coverImageD, 0, 0, 600, 1800);
   }
   digiSave = cnvBuildDig.get();
   digiScreen = false;
@@ -410,11 +431,52 @@ function changeColor() {
   }
   if (currentcolor == colormax) {
     framecolordark = true;
+    currentcover = 0;
+        coverImageD = digiTempM;
+    coverImageP = printTempM;
   } else {
     framecolordark = false;
   }
   finalScreen = false;
   printScreen = true;
+}
+
+function changeCover() {
+  if (currentcover<covermax) {
+    currentcover++;
+  } else {
+    currentcover = 0;
+  }
+  if (currentcover == 0) {
+    coverImageD = digiTempM;
+    coverImageP = printTempM;
+  } else if (currentcover == 1) {
+    coverImageD = micedigi;
+    coverImageP = miceprint;
+  } else if (currentcover == 2) {
+    coverImageD = mousedigi
+      coverImageP = mouseprint;
+  } else if (currentcover == 3) {
+    coverImageD = planedigi;
+    coverImageP = planeprint;
+  }
+  finalScreen = false;
+  printScreen = true;
+}
+
+function drawCoverDot() {
+  if (currentcover == 0) {
+
+  } else if (currentcover == 1) {
+
+    image(micedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+  } else if (currentcover == 2) {
+
+    image(mousedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+  } else if (currentcover == 3) {
+
+    image(planedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+  }
 }
 
 function drawColorDot() {
