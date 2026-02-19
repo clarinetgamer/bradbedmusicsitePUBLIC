@@ -36,7 +36,8 @@ let colormax;
 let currentcover = 0;
 let covermax = 3;
 let framecolordark = false;
-
+let printtest = false;
+let shaveper = 0.04;
 
 function preload() {
   helpbg = loadImage('assets/help.png');
@@ -64,9 +65,15 @@ function preload() {
   planedot = loadImage('assets/planedot.png');
   planedigi =loadImage('assets/digitempplane.png');
   planeprint =loadImage('assets/printtempplane.png');
+  //imported = loadImage('assets/reprint/reprint13.PNG');
 }
 
 function setup() {
+  if (printtest) {
+    printteststart = true;
+  } else {
+    printteststart = false;
+  }
   if (windowWidth > windowHeight) {
     cnv = createCanvas(windowWidth, windowHeight);
     desktop = true;
@@ -96,179 +103,70 @@ function setup() {
   colormax = colors.length - 1;
   coverImageD = digiTempM;
   coverImageP = printTempM;
+  printcropcolor = lavender;
 }
 
 
 function draw() {
-  background(241, 95, 91);
-  push();
-  if (desktop) {
-    ratioScale = windowHeight/1840;
-    translation = (windowWidth/2)-((ratioScale*1080)/2)
-      translate(translation, 0);
-  } else {
-    ratioScale = windowWidth/1080;
-  }
-  if (help) {
-    helpWindow();
-  }
-  if (main) {
-    if (photoCounter < photomax) {
-      mainWindow();
-    } else {
-      printScreen = true;
-      main = false;
-    }
-  }
-  if (flash) {
-    flashScreen();
-  }
-  if (printScreen) {
-    printingScreen();
-  }
-  if (digiScreen) {
-    digifyScreen();
-  }
-  pop();
-  push();
-  if (finalScreen) {
-    if (desktop) {
-      cnv = createCanvas(windowWidth, windowWidth);
-      translate(translation, 0);
-    } else {
-      cnv = createCanvas(windowWidth, windowWidth*1.7);
-    }
+  if (!printtest) {
+
     background(241, 95, 91);
+    push();
     if (desktop) {
-      image(exportbgdesktop, 0, 0, ratioScale*1080, ratioScale*1840);
+      ratioScale = windowHeight/1840;
+      translation = (windowWidth/2)-((ratioScale*1080)/2)
+        translate(translation, 0);
     } else {
-      image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
+      ratioScale = windowWidth/1080;
     }
-    image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
-    drawFilterDot();
-    drawColorDot();
-    if(!desktop){drawCoverDot();}
-    if (exportmenu) {
-      image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
+    if (help) {
+      helpWindow();
     }
-  }
-  pop();
-}
-
-function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging
-  image(clickbox, translation+(ratioScale*xstart), ratioScale*ystart, ratioScale*(xadd), ratioScale*(yadd));
-}
-
-function touchEnded() {
-  if (buttonBounds(220, 1703, 637, 66)) {
-    window.open("https://www.bradbedmusic.com", "_self");
-  }
-  if (help) {
-    if (buttonBounds(204, 1462, 679, 176)) {
-      help = false;
-      main = true;
-    }
-  } else if (main) {
-    if (buttonBounds(252, 1545, 573, 94)) {
-      help = true;
-      main = false;
-      resetVars();
-    }
-  } else if (finalScreen) {
-    if (buttonBounds(563, 1548, 457, 94)) {
-      help = true;
-      main = false;
-      finalScreen = false;
-      resetVars();
-    }
-    if (buttonBounds(56, 1548, 457, 94)) {
-      exportmenu = true;
-    }
-    if (buttonBounds(819, 1266, 174, 174)) {
-      changeFilter();
-    }
-    if (buttonBounds(79, 1266, 174, 174)) {
-      changeColor();
-    }
-    if (!desktop && buttonBounds(79, 897, 174, 174) && !framecolordark) {
-      changeCover();
-    }
-    if (exportmenu) {
-      if (buttonBounds(235, 607, 610, 94)) {
-        printSave.save("PhoneOBoothPrint.png");
-        exportmenu = false;
-      }
-      if (buttonBounds(235, 796, 610, 94)) {
-        digiSave.save("PhoneOBoothDigital.png");
-        exportmenu = false;
+    if (main) {
+      if (photoCounter < photomax) {
+        mainWindow();
+      } else {
+        printScreen = true;
+        main = false;
       }
     }
-  }
-}
-
-function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mouse is in the bounds of a button
-  if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yadd)) && ((ratioScale*xstart)+translation <= mouseX && mouseX <= (ratioScale*(xstart+xadd))+translation)) {
-    return true;
+    if (flash) {
+      flashScreen();
+    }
+    if (printScreen) {
+      printingScreen();
+    }
+    if (digiScreen) {
+      digifyScreen();
+    }
+    pop();
+    push();
+    if (finalScreen) {
+      if (desktop) {
+        cnv = createCanvas(windowWidth, windowWidth);
+        translate(translation, 0);
+      } else {
+        cnv = createCanvas(windowWidth, windowWidth*1.7);
+      }
+      background(241, 95, 91);
+      if (desktop) {
+        image(exportbgdesktop, 0, 0, ratioScale*1080, ratioScale*1840);
+      } else {
+        image(exportbg, 0, 0, ratioScale*1080, ratioScale*1840);
+      }
+      image(digiSave, 340*ratioScale, 272*ratioScale, ratioScale*400, ratioScale*1200);
+      drawFilterDot();
+      drawColorDot();
+      if (!desktop) {
+        drawCoverDot();
+      }
+      if (exportmenu) {
+        image(exportMenuBg, 125*ratioScale, 401*ratioScale, ratioScale*828, ratioScale*556);
+      }
+    }
+    pop();
   } else {
-    return false;
-  }
-}
-
-function helpWindow() {
-  image(helpbg, 0, 0, ratioScale*1080, ratioScale*1840);
-}
-let imagescaler = capture.height;
-function mainWindow() {
-  image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
-  push();
-  scale(-1, 1);
-  image(capture, -ratioScale*83, ratioScale*942, -ratioScale*654, ratioScale*443);
-  pop();
-  textSize(250*ratioScale);
-  text(timer, 227*ratioScale, 560*ratioScale);
-  countString = str(photoCounter+1)+ "/"+photomax;
-  textSize(90*ratioScale);
-  text(countString, 880*ratioScale, 564*ratioScale);
-  if (frameCount % 60 == 0 && timer > 0) {
-    timer --;
-  }
-  if (timer==0) {
-    main = false;
-    flash = true;
-    flashCounter = 2;
-  }
-}
-
-function flashScreen() {
-  background(255);
-  if (frameCount % 60 == 0 && flashCounter > 0) {
-    flashCounter --;
-  }
-  if (flashCounter == 1) {
-    //Take Photo
-    if (photoCounter == 0) {
-      snap1 = capture.get();
-      snap1bw = capture.get();
-    } else if (photoCounter == 1) {
-      snap2 = capture.get();
-      snap2bw = capture.get();
-    } else if (photoCounter == 2) {
-      snap3 = capture.get();
-      snap3bw = capture.get();
-    } else if (photoCounter == 3) {
-      snap4 = capture.get();
-      snap4bw = capture.get();
-    }
-  }
-  if (flashCounter==0) {
-    photoCounter ++;
-    flash = false;
-    main = true;
-    capture = createCapture(VIDEO);
-    capture.elt.setAttribute('playsinline', '');
-    capture.size(windowWidth, windowWidth*0.75);
-    capture.hide();
-    timer = 5;
+    printcrop(imported);
   }
 }
 
@@ -283,216 +181,6 @@ function resetVars() {
   exportmenu = false;
 }
 
-function printingScreen() {
-  snap1bw.filter(GRAY, false);
-  snap2bw.filter(GRAY, false);
-  snap3bw.filter(GRAY, false);
-  if (desktop) {
-    snap4bw.filter(GRAY, false);
-    printingScreenD();
-  } else {
-    printingScreenM();
-  }
-}
-
-function digifyScreen() {
-  if (desktop) {
-    digifyScreenD();
-  } else {
-    digifyScreenM();
-  }
-}
-
-function printingScreenD() {
-  cnvBuild = createCanvas(1200, 1800);
-  drawStripBG();
-  if (bwfilter) {
-    image(snap1bw, 50, 45, 501, 376);
-    image(snap1bw, 650, 45, 501, 376);
-    image(snap2bw, 50, 458, 501, 376);
-    image(snap2bw, 650, 458, 501, 376);
-    image(snap3bw, 50, 871, 501, 376);
-    image(snap3bw, 650, 871, 501, 376);
-    image(snap4bw, 50, 1284, 501, 376);
-    image(snap4bw, 650, 1284, 501, 376);
-  } else {
-    image(snap1, 50, 45, 501, 376);
-    image(snap1, 650, 45, 501, 376);
-    image(snap2, 50, 458, 501, 376);
-    image(snap2, 650, 458, 501, 376);
-    image(snap3, 50, 871, 501, 376);
-    image(snap3, 650, 871, 501, 376);
-    image(snap4, 50, 1284, 501, 376);
-    image(snap4, 650, 1284, 501, 376);
-  }
-  if (framecolordark) {
-    image(printTempW, 0, 0, 1200, 1800);
-  } else {
-    image(printTemp, 0, 0, 1200, 1800);
-  }
-  printSave = cnvBuild.get();
-  printScreen = false;
-  digiScreen = true;
-}
-
-function digifyScreenD() {
-  cnvBuildDig = createCanvas(600, 1800);
-  drawStripBG();
-  if (bwfilter) {
-    image(snap1bw, 50, 45, 501, 376);
-    image(snap2bw, 50, 458, 501, 376);
-    image(snap3bw, 50, 871, 501, 376);
-    image(snap4bw, 50, 1284, 501, 376);
-  } else {
-    image(snap1, 50, 45, 501, 376);
-    image(snap2, 50, 458, 501, 376);
-    image(snap3, 50, 871, 501, 376);
-    image(snap4, 50, 1284, 501, 376);
-  }
-
-  if (framecolordark) {
-    image(digiTempW, 0, 0, 600, 1800);
-  } else {
-    image(digiTemp, 0, 0, 600, 1800);
-  }
-  digiSave = cnvBuildDig.get();
-  digiScreen = false;
-  finalScreen = true;
-}
-
-function printingScreenM() {
-  cnvBuild = createCanvas(1200, 1800);
-  drawStripBG();
-  if (bwfilter) {
-    image(snap1bw, 126, 13, 458, 580);
-    image(snap2bw, 126, 610, 458, 580);
-    image(snap3bw, 126, 1207, 458, 580);
-    image(snap1bw, 726, 13, 458, 580);
-    image(snap2bw, 726, 610, 458, 580);
-    image(snap3bw, 726, 1207, 458, 580);
-  } else {
-    image(snap1, 126, 13, 458, 580);
-    image(snap2, 126, 610, 458, 580);
-    image(snap3, 126, 1207, 458, 580);
-    image(snap1, 726, 13, 458, 580);
-    image(snap2, 726, 610, 458, 580);
-    image(snap3, 726, 1207, 458, 580);
-  }
-  if (framecolordark) {
-    image(printTempWM, 0, 0, 1200, 1800);
-  } else {
-    image(coverImageP, 0, 0, 1200, 1800);
-  }
-  printSave = cnvBuild.get();
-  printScreen = false;
-  digiScreen = true;
-}
-
-function digifyScreenM() {
-  cnvBuildDig = createCanvas(600, 1800);
-  drawStripBG();
-  if (bwfilter) {
-    image(snap1bw, 126, 13, 458, 580);
-    image(snap2bw, 126, 610, 458, 580);
-    image(snap3bw, 126, 1207, 458, 580);
-  } else {
-    image(snap1, 126, 13, 458, 580);
-    image(snap2, 126, 610, 458, 580);
-    image(snap3, 126, 1207, 458, 580);
-  }
-  if (framecolordark) {
-    image(digiTempWM, 0, 0, 600, 1800);
-  } else {
-    image(coverImageD, 0, 0, 600, 1800);
-  }
-  digiSave = cnvBuildDig.get();
-  digiScreen = false;
-  finalScreen = true;
-}
-
-function drawStripBG() {
-  push();
-  fill(colors[currentcolor]);
-  rect(0, 0, 1200, 1800);
-  pop();
-}
-
-function changeFilter() {
-  bwfilter = !bwfilter;
-  finalScreen = false;
-  printScreen = true;
-}
-
-function changeColor() {
-  if (currentcolor<colormax) {
-    currentcolor++;
-  } else {
-    currentcolor = 0;
-  }
-  if (currentcolor == colormax) {
-    framecolordark = true;
-    currentcover = 0;
-        coverImageD = digiTempM;
-    coverImageP = printTempM;
-  } else {
-    framecolordark = false;
-  }
-  finalScreen = false;
-  printScreen = true;
-}
-
-function changeCover() {
-  if (currentcover<covermax) {
-    currentcover++;
-  } else {
-    currentcover = 0;
-  }
-  if (currentcover == 0) {
-    coverImageD = digiTempM;
-    coverImageP = printTempM;
-  } else if (currentcover == 1) {
-    coverImageD = micedigi;
-    coverImageP = miceprint;
-  } else if (currentcover == 2) {
-    coverImageD = mousedigi
-      coverImageP = mouseprint;
-  } else if (currentcover == 3) {
-    coverImageD = planedigi;
-    coverImageP = planeprint;
-  }
-  finalScreen = false;
-  printScreen = true;
-}
-
-function drawCoverDot() {
-  if (currentcover == 0) {
-
-  } else if (currentcover == 1) {
-
-    image(micedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
-  } else if (currentcover == 2) {
-
-    image(mousedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
-  } else if (currentcover == 3) {
-
-    image(planedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
-  }
-}
-
-function drawColorDot() {
-  push();
-  fill(colors[currentcolor]);
-  circle(166*ratioScale, 1349*ratioScale, 174*ratioScale);
-  pop();
-}
-
-function drawFilterDot() {
-  if (bwfilter) {
-    image(bwdot, 819*ratioScale, 1266*ratioScale, ratioScale*175, ratioScale*175);
-  } else {
-    image(coldot, 819*ratioScale, 1266*ratioScale, ratioScale*175, ratioScale*175);
-  }
-}
 
 function windowResized() { //resize site on desktop
   if (desktop) {
