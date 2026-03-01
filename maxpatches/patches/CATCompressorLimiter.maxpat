@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 134.0, 100.0, 1045.0, 787.0 ],
+		"rect" : [ 34.0, 102.0, 1444.0, 787.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 11.0,
 		"gridsize" : [ 15.0, 15.0 ],
@@ -2030,7 +2030,7 @@
 						}
 ,
 						"classnamespace" : "rnbo",
-						"rect" : [ 258.0, 100.0, 1137.0, 791.0 ],
+						"rect" : [ 258.0, 100.0, 1137.0, 788.0 ],
 						"default_fontname" : "Lato",
 						"gridsize" : [ 15.0, 15.0 ],
 						"title" : "Compressor",
@@ -2756,8 +2756,8 @@
 									"patching_rect" : [ 365.25, 612.0, 43.0, 23.0 ],
 									"rnbo_classname" : "out~",
 									"rnbo_extra_attributes" : 									{
-										"meta" : "",
-										"comment" : ""
+										"comment" : "",
+										"meta" : ""
 									}
 ,
 									"rnbo_serial" : 1,
@@ -4072,8 +4072,8 @@
 									"patching_rect" : [ 298.25, 759.0, 43.0, 23.0 ],
 									"rnbo_classname" : "out~",
 									"rnbo_extra_attributes" : 									{
-										"meta" : "",
-										"comment" : ""
+										"comment" : "",
+										"meta" : ""
 									}
 ,
 									"rnbo_serial" : 2,
@@ -4169,8 +4169,8 @@
 									"patching_rect" : [ 253.153153002262115, 14.0, 35.0, 23.0 ],
 									"rnbo_classname" : "in~",
 									"rnbo_extra_attributes" : 									{
-										"meta" : "",
-										"comment" : ""
+										"comment" : "",
+										"meta" : ""
 									}
 ,
 									"rnbo_serial" : 1,
@@ -4265,8 +4265,8 @@
 									"patching_rect" : [ 305.0, 14.0, 35.0, 23.0 ],
 									"rnbo_classname" : "in~",
 									"rnbo_extra_attributes" : 									{
-										"meta" : "",
-										"comment" : ""
+										"comment" : "",
+										"meta" : ""
 									}
 ,
 									"rnbo_serial" : 2,
@@ -4360,8 +4360,8 @@
 									"patching_rect" : [ 250.25, 759.0, 43.0, 23.0 ],
 									"rnbo_classname" : "out~",
 									"rnbo_extra_attributes" : 									{
-										"meta" : "",
-										"comment" : ""
+										"comment" : "",
+										"meta" : ""
 									}
 ,
 									"rnbo_serial" : 3,
@@ -4907,14 +4907,8 @@
 ,
 					"patching_rect" : [ 301.0, 557.0, 131.0, 21.0 ],
 					"rnboattrcache" : 					{
-						"release" : 						{
-							"label" : "release",
-							"isEnum" : 0,
-							"parsestring" : ""
-						}
-,
-						"ratio" : 						{
-							"label" : "ratio",
+						"makeupgain" : 						{
+							"label" : "makeupgain",
 							"isEnum" : 0,
 							"parsestring" : ""
 						}
@@ -4925,14 +4919,20 @@
 							"parsestring" : ""
 						}
 ,
-						"inputgain" : 						{
-							"label" : "inputgain",
+						"ratio" : 						{
+							"label" : "ratio",
 							"isEnum" : 0,
 							"parsestring" : ""
 						}
 ,
-						"makeupgain" : 						{
-							"label" : "makeupgain",
+						"release" : 						{
+							"label" : "release",
+							"isEnum" : 0,
+							"parsestring" : ""
+						}
+,
+						"inputgain" : 						{
+							"label" : "inputgain",
 							"isEnum" : 0,
 							"parsestring" : ""
 						}

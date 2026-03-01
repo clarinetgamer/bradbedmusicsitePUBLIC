@@ -3,6 +3,7 @@ function helpWindow() {
   image(helpbg, 0, 0, ratioScale*1080, ratioScale*1840);
 }
 let imagescaler = capture.height;
+
 function mainWindow() {
   image(mainbg, 0, 0, ratioScale*1080, ratioScale*1840);
   push();
@@ -24,7 +25,7 @@ function mainWindow() {
   }
 }
 
-function flashScreen() {
+function flashScreen() { //Shine the flash and take photos
   background(255);
   if (frameCount % 60 == 0 && flashCounter > 0) {
     flashCounter --;
@@ -45,7 +46,7 @@ function flashScreen() {
       snap4bw = capture.get();
     }
   }
-  if (flashCounter==0) {
+  if (flashCounter==0) { //initialize the camera if not done in setpu
     photoCounter ++;
     flash = false;
     main = true;

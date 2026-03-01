@@ -168,7 +168,7 @@ function projLinks() {
     if (projscroller == 0) {
       window.location.href = "phoneobooth";
     } else if (projscroller == 1) {
-      window.open('https://www.instagram.com/p/DR7rhwjgYwj/?igsh=MWV6bDQwODJ4eTdnag==', "_self");
+      window.location.href = "mrsnow";
     } else if (projscroller == 2) {
       window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
     }

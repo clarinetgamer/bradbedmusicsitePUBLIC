@@ -1,5 +1,5 @@
 
-function printingScreen() {
+function printingScreen() { //decided between mobile and desktop print export and create bw files
   snap1bw.filter(GRAY, false);
   snap2bw.filter(GRAY, false);
   snap3bw.filter(GRAY, false);
@@ -11,13 +11,14 @@ function printingScreen() {
   }
 }
 
-function digifyScreen() {
+function digifyScreen() { //decided between mobile and desktop export
   if (desktop) {
     digifyScreenD();
   } else {
     digifyScreenM();
   }
 }
+//Draw print export photobooth files
 
 function printingScreenD() {
   wscl = 1200*(shaveper/2);
@@ -53,31 +54,6 @@ function printingScreenD() {
   digiScreen = true;
 }
 
-function digifyScreenD() {
-  cnvBuildDig = createCanvas(600, 1800);
-  drawStripBG();
-  if (bwfilter) {
-    image(snap1bw, 50, 45, 501, 376);
-    image(snap2bw, 50, 458, 501, 376);
-    image(snap3bw, 50, 871, 501, 376);
-    image(snap4bw, 50, 1284, 501, 376);
-  } else {
-    image(snap1, 50, 45, 501, 376);
-    image(snap2, 50, 458, 501, 376);
-    image(snap3, 50, 871, 501, 376);
-    image(snap4, 50, 1284, 501, 376);
-  }
-
-  if (framecolordark) {
-    image(digiTempW, 0, 0, 600, 1800);
-  } else {
-    image(digiTemp, 0, 0, 600, 1800);
-  }
-  digiSave = cnvBuildDig.get();
-  digiScreen = false;
-  finalScreen = true;
-}
-
 function printingScreenM() {
   wscl = 1200*(shaveper/2);
   hscl = 1800*(shaveper/4)*3;
@@ -108,6 +84,33 @@ function printingScreenM() {
   digiScreen = true;
 }
 
+//Draw digital export photobooth files
+function digifyScreenD() {
+  cnvBuildDig = createCanvas(600, 1800);
+  drawStripBG();
+  if (bwfilter) {
+    image(snap1bw, 50, 45, 501, 376);
+    image(snap2bw, 50, 458, 501, 376);
+    image(snap3bw, 50, 871, 501, 376);
+    image(snap4bw, 50, 1284, 501, 376);
+  } else {
+    image(snap1, 50, 45, 501, 376);
+    image(snap2, 50, 458, 501, 376);
+    image(snap3, 50, 871, 501, 376);
+    image(snap4, 50, 1284, 501, 376);
+  }
+
+  if (framecolordark) {
+    image(digiTempW, 0, 0, 600, 1800);
+  } else {
+    image(digiTemp, 0, 0, 600, 1800);
+  }
+  digiSave = cnvBuildDig.get();
+  digiScreen = false;
+  finalScreen = true;
+}
+
+
 function digifyScreenM() {
   cnvBuildDig = createCanvas(600, 1800);
   drawStripBG();
@@ -130,7 +133,7 @@ function digifyScreenM() {
   finalScreen = true;
 }
 
-function printcrop(img) {
+function printcrop(img) { //function for testing testcrop
   cnvBuild = createCanvas(1200*(1+shaveper), 1800*(1+shaveper));
   background(printcropcolor);
   scalerper = 1 - shaveper;
@@ -142,19 +145,19 @@ function printcrop(img) {
   return cnvBuild.get();
 }
 
-function drawStripBG() {
+function drawStripBG() { //this can prob be rewritten and removed
   push();
   background(colors[currentcolor]);
   pop();
 }
 
-function changeFilter() {
+function changeFilter() { //changes filter between b/w to color and reprocesses image
   bwfilter = !bwfilter;
   finalScreen = false;
   printScreen = true;
 }
 
-function changeColor() {
+function changeColor() { //Rotates through strip color list and rerenders
   if (currentcolor<colormax) {
     currentcolor++;
   } else {
@@ -172,7 +175,7 @@ function changeColor() {
   printScreen = true;
 }
 
-function changeCover() {
+function changeCover() { //Rotates through strip cover frames list and rerenders
   if (currentcover<covermax) {
     currentcover++;
   } else {
@@ -182,30 +185,30 @@ function changeCover() {
     coverImageD = digiTempM;
     coverImageP = printTempM;
   } else if (currentcover == 1) {
-    coverImageD = micedigi;
-    coverImageP = miceprint;
-  } else if (currentcover == 2) {
-    coverImageD = mousedigi
-      coverImageP = mouseprint;
-  } else if (currentcover == 3) {
     coverImageD = planedigi;
     coverImageP = planeprint;
+  } else if (currentcover == 2) {
+    coverImageD = micedigi;
+    coverImageP = miceprint;
+  } else if (currentcover == 3) {
+    coverImageD = mousedigi;
+    coverImageP = mouseprint;
   }
   finalScreen = false;
   printScreen = true;
 }
 
+//Draw UI Dots As Users Change Them
+
 function drawCoverDot() {
   if (currentcover == 0) {
   } else if (currentcover == 1) {
-
-    image(micedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
-  } else if (currentcover == 2) {
-
-    image(mousedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
-  } else if (currentcover == 3) {
-
     image(planedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+
+  } else if (currentcover == 2) {
+    image(micedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+  } else if (currentcover == 3) {
+    image(mousedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
   }
 }
 
