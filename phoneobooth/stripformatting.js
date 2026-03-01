@@ -45,9 +45,9 @@ function printingScreenD() {
     image(snap4, 650+wscl, 1284+hscl, 501, 376);
   }
   if (framecolordark) {
-    image(printTempW, 0, 0, 1200, 1800);
+    image(printTempW, 0+wscl, 0+hscl, 1200, 1800);
   } else {
-    image(printTemp, 0, 0, 1200, 1800);
+    image(printTemp, 0+wscl, 0+hscl, 1200, 1800);
   }
   printSave = cnvBuild.get();
   printScreen = false;
