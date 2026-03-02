@@ -32,7 +32,6 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
 
     // move the origin to the pivot point
     translate(this.pos.x, this.pos.y);
-
     if (mouseIsPressed && this.isClickedOn) {
       if (neg) {
         this.rotateMe=this.currentRot+map(mouseX, this.myX, 600, 0, -360);
@@ -55,6 +54,7 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
     imageMode(CENTER);
     image(this.img, 0, 0, this.diameter, this.diameter);
     pop();
+
     rotate(0);
     //textAlign(CENTER);
     this.knobValue=map(this.rotateMe, -280, 0, hiNum, lowNum);

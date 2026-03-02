@@ -14,6 +14,7 @@ let lastChange = 0;
 let animCounter = 0;
 let animButtonImg;
 let test = false;
+let touched = false;
 
 
 // Load the image.

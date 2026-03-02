@@ -87,12 +87,22 @@ function touchMoved() {
   if (!desktop) {
     moved = true;
   }
+
 }
 
 function touchStarted() {
   if (!desktop) {
     moved = false;
     buttonMStartHandler();
+  }
+    if (desktop) {
+    buttonPressHandler();
+    xposKnob.active();
+    yposKnob.active();
+    timedivKnob.active();
+    voltsdivKnob.active();
+    projMenKnob.active();
+    songMenKnob.active();
   }
 }
 

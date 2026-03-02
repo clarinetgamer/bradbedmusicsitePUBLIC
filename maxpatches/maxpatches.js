@@ -103,9 +103,10 @@ function buttonPressHandler() {
 
 function buttonClickHandler() {
   if (buttonBounds(59, 153, 37, 33)) {
-    window.open("patches/CATCompressorLimiter.maxpat")
+    window.open("patches/CATCompressorLimiter.mxf")
     bc1r1 = !bc1r1;
   } else if (buttonBounds(59, 206, 37, 33)) {
+    window.open("patches/IsorhythmGenerator.mxf")
     bc1r2 = !bc1r2;
   } else if (buttonBounds(59, 260, 37, 33)) {
     bc1r3 = !bc1r3;

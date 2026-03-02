@@ -69,16 +69,6 @@ function buttonPressHandler() {
     maxClick = !maxClick;
   } else if (buttonBounds(1169, 348, 40, 35)) {
     aboutClick = !aboutClick;
-  } else if (buttonBounds(1169, 74, 40, 35)) {
-    songMenClick = !songMenClick;
-    songMenKnob.reset();
-    projMenClick = false;
-    oscillOn = false;
-  } else if (buttonBounds(983, 209, 40, 35)) {
-    projMenClick = !projMenClick;
-    projMenKnob.reset();
-    songMenClick = false;
-    oscillOn = false;
   } else if (buttonBounds(1167, 218, 40, 35)) {
     songClick = !songClick;
   } else if (buttonBounds(981, 370, 40, 35)) {
@@ -89,13 +79,22 @@ function buttonPressHandler() {
 
 function buttonClickHandler() {
   if (buttonBounds(450, 36, 467, 82)) {
-    openPage("index");
   }
 
   if (buttonBounds(110, 100, 55, 35)) {
     oscillOn = !oscillOn;
     projMenClick = false;
     songMenClick = false;
+  } else if (buttonBounds(1169, 74, 40, 35)) {
+    songMenClick = !songMenClick;
+    songMenKnob.reset();
+    projMenClick = false;
+    oscillOn = false;
+  } else if (buttonBounds(983, 209, 40, 35)) {
+    projMenClick = !projMenClick;
+    projMenKnob.reset();
+    songMenClick = false;
+    oscillOn = false;
   } else if (buttonBounds(997, 54, 40, 35)) {
     openPage("downloads");
     downloadClick = !downloadClick;
