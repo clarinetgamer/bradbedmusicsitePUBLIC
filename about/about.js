@@ -63,7 +63,7 @@ function mouseClicked() {
     } else if (buttonBounds(121, 2940, 419, 85)) {
       window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
     } else if (buttonBounds(121, 3070, 419, 85)) {
-      window.open('https://www.instagram.com/p/DR7rhwjgYwj/?igsh=MWV6bDQwODJ4eTdnag==', "_self");
+      window.open('https://bradbedmusic.com/mrsnow', "_self");
     } else if (buttonBounds(121, 3191, 419, 85)) {
       window.open("https://bradbedmusic.com/phoneobooth", "_self");
     }
