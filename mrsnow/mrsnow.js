@@ -2,6 +2,7 @@ let snowbg;
 let y;
 let snow;
 let resized = false;
+let moved = false;
 
 function preload() {
   snowbg = loadImage('assets/MrSnowPage.png');
@@ -39,6 +40,22 @@ if (buttonBounds(534, 5285, 297, 49)) {
   else if (buttonBounds(941, 3992, 332, 597)) {
     window.open("https://www.instagram.com/reel/DR5m41CAS4U/?igsh=MXdpNnEwbjR5M2wwcw==", "_self");
   }
+}
+
+
+function touchEnded() {
+  if (!moved) {
+    mouseClicked();
+
+  }
+}
+function touchMoved() {
+    moved = true;
+}
+
+function touchStarted() {
+    moved = false;
+
 }
 
 function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging
