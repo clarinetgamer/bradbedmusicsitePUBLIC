@@ -25,19 +25,21 @@ function draw() {
     circle(random(width), random(height), random(2*ratioScale, 8*ratioScale));
     s++;
   }
+  if (buttonBounds(534, 5285, 297, 49)|| buttonBounds(941, 3992, 332, 597) || buttonBounds(519, 3992, 332, 597) ||buttonBounds(98, 3992, 332, 597)) {
+    cursor(HAND);
+  } else {
+  cursor(ARROW);
+  }
 }
 
 function mouseClicked() {
-if (buttonBounds(534, 5285, 297, 49)) {
+  if (buttonBounds(534, 5285, 297, 49)) {
     window.open("https://www.bradbedmusic.com", "_self");
-  }
-  else if (buttonBounds(98, 3992, 332, 597)) {
+  } else if (buttonBounds(98, 3992, 332, 597)) {
     window.open("https://www.instagram.com/reel/DSQIrc8Dkbq/?igsh=ZmwzaDliMnEzcnNt", "_self");
-  }
-  else if (buttonBounds(519, 3992, 332, 597)) {
+  } else if (buttonBounds(519, 3992, 332, 597)) {
     window.open("https://www.instagram.com/reel/DSBS1POAb-U/?igsh=MTJpbnluNGFoeHptcg==", "_self");
-  }
-  else if (buttonBounds(941, 3992, 332, 597)) {
+  } else if (buttonBounds(941, 3992, 332, 597)) {
     window.open("https://www.instagram.com/reel/DR5m41CAS4U/?igsh=MXdpNnEwbjR5M2wwcw==", "_self");
   }
 }
@@ -46,20 +48,18 @@ if (buttonBounds(534, 5285, 297, 49)) {
 function touchEnded() {
   if (!moved) {
     mouseClicked();
-
   }
 }
 function touchMoved() {
-    moved = true;
+  moved = true;
 }
 
 function touchStarted() {
-    moved = false;
-
+  moved = false;
 }
 
 function drawClickbox(xstart, ystart, xadd, yadd) { //draws a clicbox for debugging
-fill(0);
+  fill(0);
   rect(ratioScale*xstart, ratioScale*ystart, ratioScale*(xadd), ratioScale*(yadd));
 }
 
