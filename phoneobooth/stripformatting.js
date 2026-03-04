@@ -185,30 +185,34 @@ function changeCover() { //Rotates through strip cover frames list and rerenders
     coverImageD = digiTempM;
     coverImageP = printTempM;
   } else if (currentcover == 1) {
+    coverImageD = treatdigi;
+    coverImageP = treatprint;
+  } else if (currentcover == 2) {
     coverImageD = planedigi;
     coverImageP = planeprint;
-  } else if (currentcover == 2) {
+  } else if (currentcover == 3) {
+    coverImageD = snowdigi;
+    coverImageP = snowprint;
+  } else if (currentcover == 4) {
     coverImageD = micedigi;
     coverImageP = miceprint;
-  } else if (currentcover == 3) {
-    coverImageD = mousedigi;
-    coverImageP = mouseprint;
   }
   finalScreen = false;
   printScreen = true;
 }
 
 //Draw UI Dots As Users Change Them
-
+//When adding a new frame add the dot print and digi files in preload, copy them in this function and the change cover function and increase covermax by 1
 function drawCoverDot() {
   if (currentcover == 0) {
   } else if (currentcover == 1) {
-    image(planedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
-
+    image(treatdot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
   } else if (currentcover == 2) {
-    image(micedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+    image(planedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
   } else if (currentcover == 3) {
-    image(mousedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+    image(snowdot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
+  } else if (currentcover == 4) {
+    image(micedot, 79*ratioScale, 897*ratioScale, ratioScale*175, ratioScale*175);
   }
 }
 

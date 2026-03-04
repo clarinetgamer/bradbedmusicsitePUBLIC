@@ -34,7 +34,7 @@ let currentcolor = 0;
 let colors;
 let colormax;
 let currentcover = 0;
-let covermax = 2;
+let covermax = 4;
 let framecolordark = false;
 let printtest = false; //used for testing app
 let shaveper = 0.04;
@@ -65,6 +65,12 @@ function preload() {
   planedot = loadImage('assets/planedot.png');
   planedigi =loadImage('assets/digitempplane.png');
   planeprint =loadImage('assets/printtempplane.png');
+  snowdot = loadImage('assets/snowdot.png');
+  snowdigi =loadImage('assets/digitempsnow.png');
+  snowprint =loadImage('assets/printtempsnow.png');
+  treatdot = loadImage('assets/treatdot.png');
+  treatdigi =loadImage('assets/digitemptreat.png');
+  treatprint =loadImage('assets/printtemptreat.png');
   //imported = loadImage('assets/reprint/reprint13.PNG');
 }
 
