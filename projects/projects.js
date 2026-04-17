@@ -74,7 +74,7 @@ function buttonMReleaseHandler() {
     window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
     smplClick = !smplClick;
   } else if (buttonBounds(162, 1259, 115, 102)) {
-    window.open('https://www.bradbedmusic.com', "_self");
+    window.open('https://www.bradbedmusic.com/modularmoonshot', "_self");
     siteClick = !siteClick;
   }
 }

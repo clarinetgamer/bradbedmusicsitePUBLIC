@@ -165,9 +165,9 @@ function projectsMenu() {
   if (projscroller == 0) {
     drawProject(modularscreen);
   } else if (projscroller == 1) {
-    drawProject(photoscreen);
-  } else if (projscroller == 2) {
     drawProject(snowscreen);
+  } else if (projscroller == 2) {
+    drawProject(photoscreen);
   } else if (projscroller == 3) {
     drawProject(smplscreen);
   } else {
@@ -180,9 +180,9 @@ function projLinks() {
     if (projscroller == 0) {
       window.location.href = "modularmoonshot";
     } else if (projscroller == 1) {
-      window.location.href = "phoneobooth";
-    } else if (projscroller == 2) {
       window.location.href = "mrsnow";
+    } else if (projscroller == 2) {
+      window.location.href = "phoneobooth";
     } else if (projscroller == 3) {
       window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
     }
