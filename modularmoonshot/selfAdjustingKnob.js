@@ -1,5 +1,4 @@
 // Based on Miles DeCoster's knobMake Library - codeforartists.com
-
 function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, numPlaces, neg) {
   this.pos = createVector(0, 0);
   this.pos.x = locx*ratioScale;
@@ -15,7 +14,6 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
   this.myX;
   this.neg = neg;
   this.numPlaces = numPlaces;
-  // this.img = loadImage('knob.svg');
   this.img = loadImage(imgSrc);
 
   // the update function will be called in the main program draw function
@@ -23,13 +21,7 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
     this.pos.x = locx*ratioScale + xadd;
     this.pos.y = locy*ratioScale;
     this.diameter = diameter*ratioScale;
-    if (dist(this.pos.x, this.pos.y, mouseX, mouseY) < this.diameter/2 || this.isClickedOn) {
-      cursor('pointer');
-    } else {
-      cursor('default');
-    }
     push();
-
     // move the origin to the pivot point
     translate(this.pos.x, this.pos.y);
     if (mouseIsPressed && this.isClickedOn) {
@@ -50,21 +42,13 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
       rotate(radians(-this.rotateMe));
     }
 
-    // now we actually draw the knob to the screen
+    // draw the knob to screen
     imageMode(CENTER);
     image(this.img, 0, 0, this.diameter, this.diameter);
     pop();
-
     rotate(0);
-    //textAlign(CENTER);
     this.knobValue=map(this.rotateMe, -280, 0, hiNum, lowNum);
-    //textSize(18);
-    ////text(""+this.knobValue, this.pos.x, this.pos.y+70); // this would show the actual value for testing purposes
-    //fill(200);
-    //text(""+ nfc(this.knobValue, numPlaces), this.pos.x, this.pos.y+this.diameter/2+30); // display value to 2 decimal places
-    //fill(0);
-    //text(this.label, this.pos.x, this.pos.y+this.diameter/2+50);
-  } // end update
+  } 
 
   this.active = function() {
     if (dist(this.pos.x, this.pos.y, mouseX, mouseY) < this.diameter/2) {
@@ -91,8 +75,11 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
       image(this.img, 0, 0, this.diameter, this.diameter);
       pop();
       rotate(0);
-      //textAlign(CENTER);
       this.knobValue=defaultNum;
     }
+  }
+  
+  this.value = function() {
+    return this.knobValue;
   }
 }

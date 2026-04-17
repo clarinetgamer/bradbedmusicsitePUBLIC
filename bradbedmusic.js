@@ -24,6 +24,7 @@ function preload() {
   clickbox = loadImage('assets/CLICKBOX.png');
   off = loadImage('assets/off.png');
   animButtonImg = loadImage('assets/clickedbutt.png');
+  modularscreen = loadImage('assets/modularproj.png');
   photoscreen = loadImage('assets/phoneoproj.png');
   snowscreen = loadImage('assets/snowproj.png');
   smplscreen = loadImage('assets/smplproj.png');

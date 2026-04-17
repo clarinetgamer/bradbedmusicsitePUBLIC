@@ -81,19 +81,17 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
   }
 
   this.reset = function() {
-    this.rotateMe = 0;
-    push();
-    translate(this.pos.x, this.pos.y);
-
-
-    rotate(radians(-this.rotateMe));
-
-    // now we actually draw the knob to the screen
-    imageMode(CENTER);
-    image(this.img, 0, 0, this.diameter, this.diameter);
-    pop();
-    rotate(0);
-    //textAlign(CENTER);
-    this.knobValue=map(this.rotateMe, -280, 0, hiNum, lowNum);
+     if (dist(this.pos.x, this.pos.y, mouseX, mouseY) < this.diameter/2) {
+      this.rotateMe = map(defaultNum, lowNum, hiNum, 0, -280);
+      this.currentRot = map(defaultNum, lowNum, hiNum, 0, -280);
+      push();
+      translate(this.pos.x, this.pos.y);
+      rotate(radians(-this.rotateMe));
+      imageMode(CENTER);
+      image(this.img, 0, 0, this.diameter, this.diameter);
+      pop();
+      rotate(0);
+      this.knobValue=defaultNum;
+    }
   }
 }

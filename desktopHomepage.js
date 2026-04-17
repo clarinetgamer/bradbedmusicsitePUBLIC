@@ -43,6 +43,17 @@ function drawOscill() { //draw desktop oscilloscope
   noglow();
 }
 
+function doubleClicked() {
+  if (desktop) {
+    xposKnob.reset();
+    yposKnob.reset();
+    timedivKnob.reset();
+    voltsdivKnob.reset();
+    projMenKnob.reset();
+    songMenKnob.reset();
+  }
+}
+
 //button vars
 let downloadClick = false;
 let maxClick = false;
@@ -152,10 +163,12 @@ function drawProject(img) {
 
 function projectsMenu() {
   if (projscroller == 0) {
-    drawProject(photoscreen);
+    drawProject(modularscreen);
   } else if (projscroller == 1) {
-    drawProject(snowscreen);
+    drawProject(photoscreen);
   } else if (projscroller == 2) {
+    drawProject(snowscreen);
+  } else if (projscroller == 3) {
     drawProject(smplscreen);
   } else {
     drawProject(csscreen);
@@ -165,10 +178,12 @@ function projectsMenu() {
 function projLinks() {
   if (projMenClick) {
     if (projscroller == 0) {
-      window.location.href = "phoneobooth";
+      window.location.href = "modularmoonshot";
     } else if (projscroller == 1) {
-      window.location.href = "mrsnow";
+      window.location.href = "phoneobooth";
     } else if (projscroller == 2) {
+      window.location.href = "mrsnow";
+    } else if (projscroller == 3) {
       window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
     }
   }
