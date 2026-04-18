@@ -3,6 +3,7 @@ function RNBOPatch(patchLoc) {
   //object vars
   this.device;
   this.splitDevice;
+  this.inputArr = [];
  
   this.init = async function() { //init function
     await audioContext.resume();
@@ -11,10 +12,15 @@ function RNBOPatch(patchLoc) {
     this.device = await createDevice( {context: audioContext, patcher: patcher});
     this.splitDevice = await audioContext.createChannelSplitter(this.device.numOutputChannels);
     this.device.node.connect(this.splitDevice);
+    
+    for(let i = 0; i < this.device.node.numberOfInputs; i++) {
+       this.inputArr[i] = new inputCompensation(this.device.node, i);
+       this.inputArr[i].init();
+    }
   }
   
-  this.connect = function(outLoc, outIndex, inIndex) { //connect function
-    this.splitDevice.connect(outLoc, outIndex, inIndex);
+  this.connect = function(outLoc, outIndex) { //connect function
+    this.splitDevice.connect(outLoc, outIndex, 0);
   }
   
   this.disconnect = function(outIndex) { //disconnect function
@@ -38,8 +44,8 @@ function RNBOPatch(patchLoc) {
     return this.device.node.numberOfInputs;
   }
   
-  this.getInput = function() { //returns input node
-    return this.device.node;
+  this.getInput = function(compIndex) { //returns input node
+    return this.inputArr[compIndex].device.node;
   }
   
   this.masterOut = function() { //specifically for a RNBO mixer giving a stereo 2 ch out

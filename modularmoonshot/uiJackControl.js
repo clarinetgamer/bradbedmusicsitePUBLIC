@@ -74,11 +74,11 @@ function auxJackSetup() {
   jacks.push(vcf2LP);
 
   //vcf cv in
-  vcf1CutCV = new AdjustingAux(564.7, 281, false, vcf1, 2);
-  vcf1ResCV = new AdjustingAux(631.4, 281, false, vcf1, 1);
+  vcf1CutCV = new AdjustingAux(564.7, 281, false, vcf1, 1);
+  vcf1ResCV = new AdjustingAux(631.4, 281, false, vcf1, 2);
   vcf1in = new AdjustingAux(597.3, 343, false, vcf1, 0);
-  vcf2CutCV = new AdjustingAux(564.7, 656, false, vcf2, 2);
-  vcf2ResCV = new AdjustingAux(631.4, 656, false, vcf2, 1);
+  vcf2CutCV = new AdjustingAux(564.7, 656, false, vcf2, 1);
+  vcf2ResCV = new AdjustingAux(631.4, 656, false, vcf2, 2);
   vcf2in = new AdjustingAux(597.3, 718, false, vcf2, 0);
 
 

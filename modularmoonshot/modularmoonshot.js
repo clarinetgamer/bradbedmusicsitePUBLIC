@@ -14,7 +14,7 @@ let colorMax = 11;
 
 let begin = false;
 let startTime = 0;
-let test = false;
+let test = true;
 
 const { createDevice } = RNBO; //needed to import RNBO library
 

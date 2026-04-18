@@ -56,11 +56,10 @@ function AdjustingAux(locx, locy, direction, rnboPatch, index) {
            } else {
              colorIndex = 0;
            }
-           console.log(cableStartJack.index + ' ' +this.index)
-          cableStartJack.rnboPatch.connect(this.rnboPatch.getInput(), cableStartJack.index, this.index);
+           cableStartJack.rnboPatch.connect(this.rnboPatch.getInput(this.index), cableStartJack.index);
           this.connected = true;
         }
-      } else if(this.direction == true) {
+      } else if(this.direction == true && drawThis == false) {
         this.connected = false;
         this.rnboPatch.disconnect(this.index);
         this.connectedJack.connected = false;
