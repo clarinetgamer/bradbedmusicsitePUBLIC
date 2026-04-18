@@ -58,6 +58,7 @@ function buttonClickHandler() {
     window.open("RaspberryPiZeroWHeadlessSetupGuide.pdf");
     bc1r1 = !bc1r1;
   } else if (buttonBounds(59, 206, 37, 33)) {
+    window.open("RNBOPatchtemplate.zip");
     bc1r2 = !bc1r2;
   } else if (buttonBounds(59, 260, 37, 33)) {
     bc1r3 = !bc1r3;
