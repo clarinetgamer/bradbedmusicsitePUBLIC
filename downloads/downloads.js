@@ -61,6 +61,7 @@ function buttonClickHandler() {
     window.open("RNBOPatchtemplate.zip");
     bc1r2 = !bc1r2;
   } else if (buttonBounds(59, 260, 37, 33)) {
+    window.open("RNBOPatch()Documentation.pdf");
     bc1r3 = !bc1r3;
   } else if (buttonBounds(59, 313, 37, 33)) {
     bc1r4 = !bc1r4;
