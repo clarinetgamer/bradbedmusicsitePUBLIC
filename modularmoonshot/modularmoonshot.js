@@ -3,6 +3,7 @@ let ratioScale;
 let xadd;
 let desktop = true;
 let help = false;
+let regdraw = false;
 
 let drawThis = false;
 let drawStartx = 0;
@@ -61,6 +62,7 @@ function draw() {
           auxJackUpdate();
           fade += 2;
         } else {
+          regdraw = true;
           standardDraw();
         }
       }
@@ -131,13 +133,15 @@ function doubleClicked() {
 }
 
 function mouseClicked() {
-  if (help){
-    if(buttonBounds(1035,128,51,51)) {
-      help = false;
-    }
-  } else {
-    if(buttonBounds(899, 392, 451, 359)) {
-      help = true;
+  if(regdraw){
+    if (help){
+      if(buttonBounds(1035,128,51,51)) {
+        help = false;
+      }
+    } else {
+      if(buttonBounds(899, 392, 451, 359)) {
+        help = true;
+      }
     }
   }
 }
