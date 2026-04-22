@@ -2,6 +2,7 @@ let fade = 0;
 let ratioScale;
 let xadd;
 let desktop = true;
+let help = false;
 
 let drawThis = false;
 let drawStartx = 0;
@@ -23,6 +24,8 @@ function preload() {
   mobile = loadImage('assets/MoonshotMobile.png');
   home = loadImage('assets/MoonshotHomepage.png');
   bg = loadImage('assets/ModulesBG.png');
+  helpMen = loadImage('assets/helpMen.png');
+
 }
 
 function setup() {
@@ -79,6 +82,9 @@ function standardDraw() {
   }
   auxJackUpdate();
   cableDraw();
+  if (help) {
+    img(helpMen, 0, 0, 1366, 768);
+  }
 }
 
 function img(name, x, y, w, h) {
@@ -124,10 +130,30 @@ function doubleClicked() {
   auxDraw();
 }
 
+function mouseClicked() {
+  if (help){
+    if(buttonBounds(1035,128,51,51)) {
+      help = false;
+    }
+  } else {
+    if(buttonBounds(899, 392, 451, 359)) {
+      help = true;
+    }
+  }
+}
+
 function windowResized() { //resize site on desktop
   if (windowHeight < 768) {
     resizeCanvas(windowWidth, 768);
   } else {
     resizeCanvas(windowWidth, windowHeight);
+  }
+}
+
+function buttonBounds(xstart, ystart, xAdd, yAdd) { //returns whether or not mouse is in the bounds of a button
+  if ((ratioScale*ystart <= mouseY && mouseY <= ratioScale*(ystart+yAdd)) && (((ratioScale*xstart)+xadd) <= mouseX && mouseX <= ((ratioScale*(xstart+xAdd))+xadd))) {
+    return true;
+  } else {
+    return false;
   }
 }
