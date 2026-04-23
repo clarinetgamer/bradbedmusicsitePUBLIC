@@ -8,16 +8,17 @@ function drawDesktop() { //draw for desktop site
     drawOscill();
   } else if (projMenClick) {
     projectsMenu();
-  } else if (songMenClick) {
-    songsMenu();
+  } else if (webMenClick) {
+    webMenu();
   }
   xposKnob.update();
   yposKnob.update();
   timedivKnob.update();
   voltsdivKnob.update();
   projMenKnob.update();
-  songMenKnob.update();
+  webMenKnob.update();
   projscroller = int(projMenKnob.knobValue);
+  webscroller = int(webMenKnob.knobValue);
 }
 
 function drawOscill() { //draw desktop oscilloscope
@@ -50,7 +51,7 @@ function doubleClicked() {
     timedivKnob.reset();
     voltsdivKnob.reset();
     projMenKnob.reset();
-    songMenKnob.reset();
+    webMenKnob.reset();
   }
 }
 
@@ -58,18 +59,18 @@ function doubleClicked() {
 let downloadClick = false;
 let maxClick = false;
 let aboutClick = false;
-let songMenClick = false;
+let webMenClick = false;
 let projMenClick = false;
-let songClick = false;
+let webClick = false;
 let projClick = false;
 
 function buttonHandler() {
   onButton(downloadClick, 1036, 56);
   onButton(maxClick, 1036, 101);
   onButton(aboutClick, 1206, 348);
-  onButton(songMenClick, 1206, 74);
+  onButton(webMenClick, 1206, 74);
   onButton(projMenClick, 1020, 209);
-  onButton(songClick, 1204, 218);
+  onButton(webClick, 1204, 218);
   onButton(projClick, 1018, 370);
 }
 
@@ -81,7 +82,8 @@ function buttonPressHandler() {
   } else if (buttonBounds(1169, 348, 40, 35)) {
     aboutClick = !aboutClick;
   } else if (buttonBounds(1167, 218, 40, 35)) {
-    songClick = !songClick;
+    webLinks();
+    webClick = !webClick;
   } else if (buttonBounds(981, 370, 40, 35)) {
     projLinks();
     projClick = !projClick;
@@ -95,17 +97,17 @@ function buttonClickHandler() {
   if (buttonBounds(110, 100, 55, 35)) {
     oscillOn = !oscillOn;
     projMenClick = false;
-    songMenClick = false;
+    webMenClick = false;
   } else if (buttonBounds(1169, 74, 40, 35)) {
-    songMenClick = !songMenClick;
-    songMenKnob.reset();
+    webMenClick = !webMenClick;
     projMenClick = false;
     oscillOn = false;
+    webMenKnob.codereset();
   } else if (buttonBounds(983, 209, 40, 35)) {
     projMenClick = !projMenClick;
-    projMenKnob.reset();
-    songMenClick = false;
+    webMenClick = false;
     oscillOn = false;
+    projMenKnob.codereset();
   } else if (buttonBounds(997, 54, 40, 35)) {
     openPage("downloads");
     downloadClick = !downloadClick;
@@ -116,7 +118,7 @@ function buttonClickHandler() {
     openPage("about");
     aboutClick = !aboutClick;
   } else if (buttonBounds(1167, 218, 40, 35)) {
-    songClick = !songClick;
+    webClick = !webClick;
   } else if (buttonBounds(981, 370, 40, 35)) {
     projClick = !projClick;
   }
@@ -163,12 +165,8 @@ function drawProject(img) {
 
 function projectsMenu() {
   if (projscroller == 0) {
-    drawProject(modularscreen);
-  } else if (projscroller == 1) {
     drawProject(snowscreen);
-  } else if (projscroller == 2) {
-    drawProject(photoscreen);
-  } else if (projscroller == 3) {
+  } else if (projscroller == 1) {
     drawProject(smplscreen);
   } else {
     drawProject(csscreen);
@@ -178,17 +176,29 @@ function projectsMenu() {
 function projLinks() {
   if (projMenClick) {
     if (projscroller == 0) {
-      window.location.href = "modularmoonshot";
-    } else if (projscroller == 1) {
       window.location.href = "mrsnow";
-    } else if (projscroller == 2) {
-      window.location.href = "phoneobooth";
-    } else if (projscroller == 3) {
+    } else if (projscroller == 1) {
       window.open('https://drive.google.com/file/d/1WsKUzg5BFox6iBBhxvZxEZnhlS8QMoKl/view?usp=sharing', "_self");
     }
   }
 }
 
-function songsMenu() {
-  drawProject(csscreen);
+function webMenu() {
+  if (webscroller == 0) {
+    drawProject(modularscreen);
+  } else if (webscroller == 1) {
+    drawProject(photoscreen);
+  } else {
+    drawProject(csscreen);
+  }
+}
+
+function webLinks() {
+  if (webMenClick) {
+    if (webscroller == 0) {
+      window.location.href = "modularmoonshot";
+    } else if (webscroller == 1) {
+      window.location.href = "phoneobooth";
+    }
+  }
 }

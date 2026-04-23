@@ -94,4 +94,17 @@ function AdjustingKnob(imgSrc, diameter, locx, locy, lowNum, hiNum, defaultNum, 
       this.knobValue=defaultNum;
     }
   }
+  
+  this.codereset = function() {
+      this.rotateMe = map(defaultNum, lowNum, hiNum, 0, -280);
+      this.currentRot = map(defaultNum, lowNum, hiNum, 0, -280);
+      push();
+      translate(this.pos.x, this.pos.y);
+      rotate(radians(-this.rotateMe));
+      imageMode(CENTER);
+      image(this.img, 0, 0, this.diameter, this.diameter);
+      pop();
+      rotate(0);
+      this.knobValue=defaultNum;
+  }
 }

@@ -50,8 +50,9 @@ function setup() {
     timedivKnob = new AdjustingKnob('assets/bigknob.png', 104, 129, 297, 0, 6, 3, 2, true);
     voltsdivKnob = new AdjustingKnob('assets/bigknob.png', 104, 308, 297, 0, 6, 3, 2, true);
     projMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1057, 290, 0, 10, 0, 2, false);
-    songMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1243, 146, 0, 10, 0, 2, false);
+    webMenKnob = new AdjustingKnob('assets/menuknob.png', 84, 1243, 146, 0, 10, 0, 2, false);
     projscroller = 0;
+    webscroller = 0;
   }
 }
 
@@ -85,7 +86,7 @@ function mousePressed() {
     timedivKnob.active();
     voltsdivKnob.active();
     projMenKnob.active();
-    songMenKnob.active();
+    webMenKnob.active();
   } else {
     buttonMStartHandler();
   }
@@ -99,7 +100,7 @@ function mouseReleased() {
     timedivKnob.inactive();
     voltsdivKnob.inactive();
     projMenKnob.inactive();
-    songMenKnob.inactive();
+    webMenKnob.inactive();
   }
 }
 

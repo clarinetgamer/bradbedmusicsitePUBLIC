@@ -18,7 +18,10 @@ let begin = false;
 let startTime = 0;
 let test = false;
 
-const { createDevice } = RNBO; //needed to import RNBO library
+const {
+  createDevice
+}
+= RNBO; //needed to import RNBO library
 
 function preload() {
   startImg = loadImage('assets/ModularMoonshotOpening.png');
@@ -26,7 +29,7 @@ function preload() {
   home = loadImage('assets/MoonshotHomepage.png');
   bg = loadImage('assets/ModulesBG.png');
   helpMen = loadImage('assets/helpMen.png');
-
+  clear = loadImage('assets/clear.png');
 }
 
 function setup() {
@@ -43,7 +46,7 @@ function setup() {
 
 function draw() {
   background(6, 7, 22);
-  if(desktop){
+  if (desktop) {
     noTint();
     ratioScale = windowHeight/768;
     xadd = (windowWidth - (ratioScale * 1366))/ 2;
@@ -70,8 +73,8 @@ function draw() {
       standardDraw();
     }
   } else {
-      ratioScale = windowWidth/1290; //sets scaling var
-      image(mobile, 0, 0, ratioScale*1290, ratioScale*2387) 
+    ratioScale = windowWidth/1290; //sets scaling var
+    image(mobile, 0, 0, ratioScale*1290, ratioScale*2387)
   }
 }
 
@@ -85,6 +88,7 @@ function standardDraw() {
   auxJackUpdate();
   cableDraw();
   if (help) {
+    image(clear, 0, 0, width, height);
     img(helpMen, 0, 0, 1366, 768);
   }
 }
@@ -133,13 +137,13 @@ function doubleClicked() {
 }
 
 function mouseClicked() {
-  if(regdraw){
-    if (help){
-      if(buttonBounds(1035,128,51,51)) {
+  if (regdraw) {
+    if (help) {
+      if (buttonBounds(1035, 128, 51, 51)) {
         help = false;
       }
     } else {
-      if(buttonBounds(899, 392, 451, 359)) {
+      if (buttonBounds(899, 392, 451, 359)) {
         help = true;
       }
     }

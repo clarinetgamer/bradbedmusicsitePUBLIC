@@ -102,7 +102,7 @@ function touchStarted() {
     timedivKnob.active();
     voltsdivKnob.active();
     projMenKnob.active();
-    songMenKnob.active();
+    webMenKnob.active();
   }
 }
 
