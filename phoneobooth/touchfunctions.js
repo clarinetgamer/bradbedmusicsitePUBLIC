@@ -26,7 +26,9 @@ function touchEnded() {
       resetVars();
     }
     if (buttonBounds(56, 1548, 457, 94)) {
-      exportmenu = true;
+      printPrint();
+      printWait();
+      //exportmenu = true;
     }
     if (buttonBounds(819, 1266, 174, 174)) {
       changeFilter();
@@ -37,17 +39,29 @@ function touchEnded() {
     if (!desktop && buttonBounds(79, 897, 174, 174) && !framecolordark) {
       changeCover();
     }
-    if (exportmenu) {
-      if (buttonBounds(235, 607, 610, 94)) {
-        printSave.save("PhoneOBoothPrint.png");
-        exportmenu = false;
-      }
-      if (buttonBounds(235, 796, 610, 94)) {
-        digiSave.save("PhoneOBoothDigital.png");
-        exportmenu = false;
-      }
-    }
+    //if (exportmenu) {
+    //  if (buttonBounds(235, 607, 610, 94)) {
+    //    printPrint();
+    //    printWait();
+    //  }
+    //  if (buttonBounds(235, 796, 610, 94)) {
+    //    printDig();
+    //  }
+    //}
   }
+}
+
+async function printWait() {
+  await setTimeout(printDig, 1000);
+}
+
+async function printPrint() {
+  printSave.save("PhoneOBoothPrint.png");
+}
+
+async function printDig() {
+  digiSave.save("PhoneOBoothDigital.png");
+  exportmenu = false;
 }
 
 function buttonBounds(xstart, ystart, xadd, yadd) { //returns whether or not mouse is in the bounds of a button
