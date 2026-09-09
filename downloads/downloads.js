@@ -64,8 +64,10 @@ function buttonClickHandler() {
     window.open("RNBOPatch()Documentation.pdf");
     bc1r3 = !bc1r3;
   } else if (buttonBounds(59, 313, 37, 33)) {
+    window.open("CATCompressorLimiter.mxf")
     bc1r4 = !bc1r4;
   } else if (buttonBounds(59, 367, 37, 33)) {
+    window.open("IsorhythmGenerator.mxf")
     bc1r5 = !bc1r5;
   } else if (buttonBounds(59, 420, 37, 33)) {
     bc1r6 = !bc1r6;

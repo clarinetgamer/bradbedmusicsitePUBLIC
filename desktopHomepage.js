@@ -57,7 +57,7 @@ function doubleClicked() {
 
 //button vars
 let downloadClick = false;
-let maxClick = false;
+let creditClick = false;
 let aboutClick = false;
 let webMenClick = false;
 let projMenClick = false;
@@ -66,7 +66,7 @@ let projClick = false;
 
 function buttonHandler() {
   onButton(downloadClick, 1036, 56);
-  onButton(maxClick, 1036, 101);
+  onButton(creditClick, 1036, 101);
   onButton(aboutClick, 1206, 348);
   onButton(webMenClick, 1206, 74);
   onButton(projMenClick, 1020, 209);
@@ -78,7 +78,7 @@ function buttonPressHandler() {
   if (buttonBounds(997, 54, 40, 35)) {
     downloadClick = !downloadClick;
   } else if (buttonBounds(997, 100, 40, 35)) {
-    maxClick = !maxClick;
+    creditClick = !creditClick;
   } else if (buttonBounds(1169, 348, 40, 35)) {
     aboutClick = !aboutClick;
   } else if (buttonBounds(1167, 218, 40, 35)) {
@@ -112,8 +112,8 @@ function buttonClickHandler() {
     openPage("downloads");
     downloadClick = !downloadClick;
   } else if (buttonBounds(997, 100, 40, 35)) {
-    openPage("maxpatches");
-    maxClick = !maxClick;
+    openPage("credits");
+    creditClick = !creditClick;
   } else if (buttonBounds(1169, 348, 40, 35)) {
     openPage("about");
     aboutClick = !aboutClick;
