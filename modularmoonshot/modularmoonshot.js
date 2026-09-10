@@ -108,7 +108,18 @@ function keyPressed() {
 }
 
 function mousePressed() {
-  knobActivity()
+  knobActivity();
+  if (regdraw) {
+    if (help) {
+      if (buttonBounds(1035, 128, 51, 51)) {
+        help = false;
+      }
+    } else {
+      if (buttonBounds(899, 392, 451, 359)) {
+        help = true;
+      }
+    }
+  }
 }
 
 function mouseReleased() {
@@ -134,20 +145,6 @@ function cableDraw() {
 function doubleClicked() {
   knobReset();
   auxDraw();
-}
-
-function mouseClicked() {
-  if (regdraw) {
-    if (help) {
-      if (buttonBounds(1035, 128, 51, 51)) {
-        help = false;
-      }
-    } else {
-      if (buttonBounds(899, 392, 451, 359)) {
-        help = true;
-      }
-    }
-  }
 }
 
 function windowResized() { //resize site on desktop
