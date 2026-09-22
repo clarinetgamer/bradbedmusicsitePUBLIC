@@ -1,15 +1,50 @@
+let maxcaroindex = 1;
+let caro;
+let currcaroindex;
+let cnv;
+let link = [
+//sink
+['https://distrokid.com/hyperfollow/spencerkra/sink',
+'https://distrokid.com/hyperfollow/spencerkra/sink',
+'https://distrokid.com/hyperfollow/spencerkra/sink',
+'https://distrokid.com/hyperfollow/spencerkra/sink'],
+//clusterduck
+['https://distrokid.com/hyperfollow/bradbed/clusterduck',
+'https://distrokid.com/hyperfollow/bradbed/clusterduck',
+'https://distrokid.com/hyperfollow/bradbed/clusterduck',
+'https://distrokid.com/hyperfollow/bradbed/clusterduck']
+
+];
+
 function setup() {
   creditsbg = loadImage('assets/credits.png');
   clickbox = loadImage('assets/CLICKBOX.png');
   animButtonImg = loadImage('assets/clickedbutt.png');
-  let cnv = createCanvas(windowWidth, windowHeight);
+  sink = loadImage('assets/sinkpre.png');
+  cluster = loadImage('assets/clusterpre.png');
+  caro = [sink, cluster];
+  currcaroindex = maxcaroindex;
+  cnv = createCanvas(windowWidth, windowHeight);
 }
 
+let spotifyclick = false;
+let appleclick = false;
+let amazonclick = false;
+let youtubeclick = false;
 
 function draw() {
   background(221, 210, 192);
   ratioScale = windowWidth/1366;
   image(creditsbg, 0, 0, ratioScale*1366, ratioScale*768);
+  image(caro[currcaroindex], ratioScale*227, ratioScale*157, ratioScale*884, ratioScale*287);
+  buttonHandler();
+}
+
+function buttonHandler() {
+  onButton(spotifyclick, 685, 319);
+  onButton(appleclick, 685, 379);
+  onButton(amazonclick, 871, 319);
+  onButton(youtubeclick, 871, 379);
 }
 
 function windowResized() {
@@ -24,12 +59,40 @@ function mouseClicked() {
   externalPatching();
   if (buttonBounds(450, 36, 467, 82)) {
     window.open("https://www.bradbedmusic.com", "_self");
+  } else if (buttonBounds(1062, 251, 46, 86)) {
+    if (currcaroindex > 0) {
+      currcaroindex--;
+    }
+  } else if (buttonBounds(237, 251, 46, 86)) {
+    if (currcaroindex < maxcaroindex) {
+      currcaroindex++;
+    }
+  } else if (buttonBounds(649, 321, 37, 33)) {
+    spotifyclick = !spotifyclick;
+    window.open(link[currcaroindex][0]);
+  } else if (buttonBounds(835, 321, 37, 33)) {
+    amazonclick = !amazonclick;
+    window.open(link[currcaroindex][1]);
+  } else if (buttonBounds(835, 379, 37, 33)) {
+    youtubeclick = !youtubeclick;
+    window.open(link[currcaroindex][2]);
+  } else if (buttonBounds(649, 379, 37, 33)) {
+    appleclick = !appleclick;
+    window.open(link[currcaroindex][3]);
   }
 }
 
 function mousePressed() {
+  if (buttonBounds(649, 321, 37, 33)) {
+    spotifyclick = !spotifyclick;
+  } else if (buttonBounds(835, 321, 37, 33)) {
+    amazonclick = !amazonclick;
+  } else if (buttonBounds(835, 379, 37, 33)) {
+    youtubeclick = !youtubeclick;
+  } else if (buttonBounds(649, 379, 37, 33)) {
+    appleclick = !appleclick;
+  }
 }
-
 
 function externalPatching() { //external links on desktop buttons
   if ((ratioScale*600<= mouseY && mouseY <= ratioScale*650)) {
